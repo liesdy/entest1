@@ -21,6 +21,7 @@ import SelectPhraseList from './selectPhraseList.vue'
 import SelectSentenceList from './selectSentenceList.vue'
 import CmTable from './cmTable.vue'
 import HistoryList from './historyList.vue'
+import Editor from './editor.vue'
 
 // Vue.component(DetailDialog.name, DetailDialog)
 Vue.component(PartArticle.name, PartArticle)
@@ -40,3 +41,4 @@ Vue.component(SelectPhraseList.name, SelectPhraseList)
 Vue.component(SelectSentenceList.name, SelectSentenceList)
 Vue.component(CmTable.name, CmTable)
 Vue.component(HistoryList.name, HistoryList)
+Vue.component(Editor.name, Editor)

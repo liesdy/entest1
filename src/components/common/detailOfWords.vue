@@ -17,7 +17,8 @@
               <span>{{rootData.detail.pronounce}}</span>
             </el-form-item>
             <el-form-item label="详情:">
-              <span>{{rootData.detail.contain}}</span>
+              <!-- <span >{{rootData.detail.contain}}</span> -->
+              <span v-html="rootData.detail.contain"></span>
             </el-form-item>
             <el-form-item label="备注:" >
               <span>{{rootData.detail.remark}}</span>
@@ -49,7 +50,8 @@
             <el-input v-if='rootData2.detail' v-model='rootData2.detail.pronounce' class="w-input"></el-input>
           </el-form-item>
           <el-form-item label="详情:">
-            <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' type="textarea"></el-input>
+            <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' type="textarea"></el-input> -->
+            <editor v-if='rootData2.detail' v-model='rootData2.detail.contain'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-if='rootData2.detail' v-model='rootData2.detail.remark' class="w-input"></el-input>
