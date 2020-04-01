@@ -11,7 +11,8 @@
               <span>{{rootData.cn}}</span>
             </el-form-item>
             <el-form-item label="详情:">
-              <span>{{rootData.contain}}</span>
+              <!-- <span>{{rootData.contain}}</span> -->
+              <div v-html="rootData.contain"></div>
             </el-form-item>
             <el-form-item label="备注:" >
               <span>{{rootData.remark}}</span>
@@ -30,7 +31,8 @@
             <el-input v-model='rootData2.cn' class="w-input"></el-input>
           </el-form-item>
           <el-form-item label="详情:">
-            <el-input v-model='rootData2.contain' class="w-input" type="textarea"></el-input>
+            <!-- <el-input v-model='rootData2.contain' class="w-input" type="textarea"></el-input> -->
+            <editor v-model='rootData2.contain'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-model='rootData2.remark' class="w-input"></el-input>

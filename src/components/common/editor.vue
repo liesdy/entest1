@@ -7,16 +7,46 @@
     @blur="onEditorBlur($event)"
     @change="onEditorChange($event)">
     <div id="toolbar" slot="toolbar">
-      <button class="ql-bold" title="加粗">Bold</button>
+      <button class="ql-bold" title="加粗"></button>
+      <button class="ql-italic" title="斜体"></button>
+      <button class="ql-underline" title="下划线"></button>
+      <button class="ql-strike" title="删除线"></button>
+
+      <button class="ql-blockquote" title="引用"></button>
+      <!-- <button class="ql-code-block" title="代码块"></button> -->
+
+      <!-- <button class="ql-header" title="标题1" value='1'></button>
+      <button class="ql-header" title="标题2" value='2'></button> -->
+
+      <button class="ql-script" title="下标" value='sub'></button>
+      <button class="ql-script" title="上标" value='super'></button>
+
+      <button class="ql-direction" title="位置变更" value='rtl'></button>
+
+      <!-- <button class="ql-font ql-picker" title="字体选择" value='rtl'></button> -->
+      <select class="ql-font" title="字体选择">
+        <option selected value="Sans Serif"></option>
+        <option value="serif"></option>
+        <option value="monospace"></option>
+      </select>
+
       <select class="ql-header" title="段落格式">
-          <option selected>正文</option>
-          <option value="2">标题1</option>
-          <option value="3">标题2</option>
-          <option value="4">标题3</option>
+        <option selected value="1">正文</option>
+        <option value="4">小</option>
+        <option value="3">中</option>
+        <option value="2">大</option>
       </select>
       <button class="ql-list" value="ordered" title="有序列表"></button>
       <button class="ql-list" value="bullet" title="无序列表"></button>
       <select class="ql-color" value="color" title="字体颜色"></select>
+      <select class="ql-background" value="color" title="字体背景颜色"></select>
+      <select class="ql-align">
+        <option selected>left</option>
+        <option value="center">center</option>
+        <option value="right">right</option>
+        <option value="justify">justify</option>
+      </select>
+      <button class='ql-link'></button>
       <!-- <span class="icon-pic custom-icon" title="图片" @click="insertImgClick($event)"></span>
       <span class="icon-video custom-icon" title="视频" @click="insertImgClick($event)"></span> -->
     </div>
@@ -31,7 +61,7 @@
 // npm install vue-quill-editor -S
 import { quillEditor } from 'vue-quill-editor' // 调用富文本编辑器
 import 'quill/dist/quill.snow.css' // 富文本编辑器外部引用样式  三种样式三选一引入即可
-// import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.core.css'
 // import 'quill/dist/quill.bubble.css'
 // import * as Quill from 'quill'; // 富文本基于quill
 export default {
@@ -53,6 +83,22 @@ export default {
       editorOption: { //  富文本编辑器配置
         modules: {
           toolbar: '#toolbar'
+          // toolbar: [
+          // ['bold', 'italic', 'underline', 'strike'],
+          // ['blockquote', 'code-block'],
+          // [{ 'header': 1 }, { 'header': 2 }],
+          // [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          // [{ 'script': 'sub' }, { 'script': 'super' }],
+          // [{ 'indent': '-1' }, { 'indent': '+1' }],
+          // [{ 'direction': 'rtl' }],
+          // [{ 'size': ['small', false, 'large', 'huge'] }],
+          // [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          // [{ 'font': [] }],
+          // [{ 'color': [] }, { 'background': [] }],
+          // [{ 'align': [] }]
+          // ['clean'],
+          // ['link', 'image', 'video']
+        // ]
         },
         theme: 'snow',
         placeholder: '请输入正文'
@@ -163,6 +209,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+.ql-editor p {
+  line-height: 36px;
+}
+</style>
 <style scoped lang='scss'>
 h3 {
   margin: 40px 0 0;
@@ -178,7 +229,7 @@ li {
 a {
   color: #42b983;
 }
-.ql-header, .ql-color {
+.ql-header, .ql-color, .ql-font, .ql-background, .ql-align{
   line-height: 23px;
 }
 .ql-color {

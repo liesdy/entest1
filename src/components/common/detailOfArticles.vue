@@ -16,10 +16,12 @@
               <!-- <span>{{rootData.en}}</span> -->
             </el-form-item>
             <el-form-item label="中文:">
-              <span>{{rootData.detail.cn}}</span>
+              <!-- <span>{{rootData.detail.cn}}</span> -->
+              <div v-html="rootData.detail.cn"></div>
             </el-form-item>
             <el-form-item label="详情:">
-              <span>{{rootData.detail.contain}}</span>
+              <!-- <span>{{rootData.detail.contain}}</span> -->
+              <div v-html="rootData.detail.contain"></div>
             </el-form-item>
             <el-form-item label="备注:" >
               <span>{{rootData.detail.remark}}</span>
@@ -61,13 +63,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="英文">
-            <el-input v-model='rootData2.en' class="w-input"></el-input>
+            <!-- <el-input v-model='rootData2.en' class="w-input"></el-input> -->
+            <editor v-model='rootData2.en'></editor>
           </el-form-item>
           <el-form-item label="中文">
-            <el-input v-if='rootData2.detail' v-model='rootData2.detail.cn' class="w-input"></el-input>
+            <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.cn' class="w-input"></el-input> -->
+            <editor v-if='rootData2.detail' v-model='rootData2.detail.cn'></editor>
           </el-form-item>
           <el-form-item label="详情:">
-            <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' class="w-input" type="textarea"></el-input>
+            <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' class="w-input" type="textarea"></el-input> -->
+            <editor v-if='rootData2.detail' v-model='rootData2.detail.contain'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-if='rootData2.detail' v-model='rootData2.detail.remark' class="w-input"></el-input>
