@@ -31,8 +31,8 @@ export default {
     formatTime: formatTime,
     clone: clone,
     confirmAdd () {
-      if (this.rootData.en && this.canAdd) {
-        this.api.add(this.rootData).then(res => {
+      if (this.canAdd && (this.rootData2.en || this.rootData2.title)) {
+        this.api.add(this.rootData2).then(res => {
           if (res.data && res.data.id) {
             this.detailId = res.data.id
             this.getDetail()
@@ -78,8 +78,10 @@ export default {
     },
     edit () {
       this.rootData2 = this.clone(this.rootData)
-      this.isView = false
-      this.isAdd = false
+      this.$nextTick(() => {
+        this.isView = false
+        this.isAdd = false
+      })
     },
     cancel () {
       this.isView = true
@@ -112,7 +114,11 @@ export default {
   mounted () {
     this.isAdd = this.add
     if (this.add) {
-      this.isView = false
+      this.rootData2 = this.clone(this.rootData)
+      this.$nextTick(() => {
+        this.isView = false
+        this.isAdd = true
+      })
     } else {
       this.isView = true
     }

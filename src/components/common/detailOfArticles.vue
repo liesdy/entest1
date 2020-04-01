@@ -8,7 +8,7 @@
               <span>{{rootData.title}}</span>
             </el-form-item>
             <el-form-item label="来源:">
-              <span>{{rootData.book.book_name}}</span><span v-if='rootData.lesson'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lesson{{rootData.lesson}}</span>
+              <span v-if='rootData.book'>{{rootData.book.book_name}}</span><span v-if='rootData.lesson'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lesson{{rootData.lesson}}</span>
             </el-form-item>
             <el-form-item label="英文:">
               <!-- <template v-html="rootData.en"></template> -->
@@ -17,14 +17,14 @@
             </el-form-item>
             <el-form-item label="中文:">
               <!-- <span>{{rootData.detail.cn}}</span> -->
-              <div v-html="rootData.detail.cn"></div>
+              <div v-if='rootData.detail' v-html="rootData.detail.cn"></div>
             </el-form-item>
             <el-form-item label="详情:">
               <!-- <span>{{rootData.detail.contain}}</span> -->
-              <div v-html="rootData.detail.contain"></div>
+              <div v-if='rootData.detail' v-html="rootData.detail.contain"></div>
             </el-form-item>
             <el-form-item label="备注:" >
-              <span>{{rootData.detail.remark}}</span>
+              <span v-if='rootData.detail'>{{rootData.detail.remark}}</span>
             </el-form-item>
           </div>
         </template>
@@ -64,15 +64,15 @@
           </el-form-item>
           <el-form-item label="英文">
             <!-- <el-input v-model='rootData2.en' class="w-input"></el-input> -->
-            <editor v-model='rootData2.en'></editor>
+            <editor v-model='rootData2.en' id='edt01'></editor>
           </el-form-item>
           <el-form-item label="中文">
             <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.cn' class="w-input"></el-input> -->
-            <editor v-if='rootData2.detail' v-model='rootData2.detail.cn'></editor>
+            <editor v-if='rootData2.detail' v-model='rootData2.detail.cn' id='edt02'></editor>
           </el-form-item>
           <el-form-item label="详情:">
             <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' class="w-input" type="textarea"></el-input> -->
-            <editor v-if='rootData2.detail' v-model='rootData2.detail.contain'></editor>
+            <editor v-if='rootData2.detail' v-model='rootData2.detail.contain' id='edt03'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-if='rootData2.detail' v-model='rootData2.detail.remark' class="w-input"></el-input>
@@ -203,6 +203,39 @@ export default {
           // this.isView = true
           // this.isAdd = false
         }
+      })
+    },
+    getDetail () {
+      let postData = {
+        id: this.detailId
+      }
+      let vm = this
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      api.get(postData).then((result) => {
+        vm.rootData = result.data
+        if (!vm.rootData.book) {
+          vm.rootData.book = {
+            id: null,
+            book_name: null
+          }
+        }
+        if (!vm.rootData.detail) {
+          vm.rootData.detail = {
+            cn: null,
+            contain: null,
+            link: null,
+            picture: null,
+            remark: null
+          }
+        }
+        loading.close()
+        vm.isAdd = false
+        vm.isView = true
       })
     }
   },

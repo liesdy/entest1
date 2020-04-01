@@ -185,6 +185,33 @@ export default {
   watch: {
   },
   methods: {
+    getDetail () {
+      let postData = {
+        id: this.detailId
+      }
+      let vm = this
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
+      api.get(postData).then((result) => {
+        vm.rootData = result.data
+        if (!vm.rootData.detail) {
+          vm.rootData.detail = {
+            cn: null,
+            contain: null,
+            link: null,
+            picture: null,
+            remark: null
+          }
+        }
+        loading.close()
+        vm.isAdd = false
+        vm.isView = true
+      })
+    }
   },
   mounted () {
   }

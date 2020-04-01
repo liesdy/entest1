@@ -6,7 +6,8 @@
     @focus="onEditorFocus($event)"
     @blur="onEditorBlur($event)"
     @change="onEditorChange($event)">
-    <div id="toolbar" slot="toolbar">
+    <!-- <div id="toolbar" slot="toolbar"> -->
+    <div :id="id" slot="toolbar">
       <button class="ql-bold" title="加粗"></button>
       <button class="ql-italic" title="斜体"></button>
       <button class="ql-underline" title="下划线"></button>
@@ -70,19 +71,25 @@ export default {
     quillEditor
   },
   props: {
-    value: String
+    value: String,
+    id: {
+      type: String,
+      default: 'editId'
+    }
   },
   model: {
     prop: 'value',
     event: 'emitValue'
   },
   data () {
+    let _this = this
     return {
       editor: null, // 富文本编辑器对象
       content: `<p></p><p><br></p><ol></ol>`, // 富文本编辑器默认内容
       editorOption: { //  富文本编辑器配置
         modules: {
-          toolbar: '#toolbar'
+          // toolbar: '#toolbar'
+          toolbar: '#' + _this.id
           // toolbar: [
           // ['bold', 'italic', 'underline', 'strike'],
           // ['blockquote', 'code-block'],
