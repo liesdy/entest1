@@ -13,6 +13,7 @@
         <el-option label="3" :value="3" />
         <el-option label="4" :value="4" />
       </el-select>
+      <el-input v-model='filters.phrase.value' class='w-input' placeholder="短语"></el-input>
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
       <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'word')" round>新增</el-button>
     </el-row>
@@ -104,6 +105,11 @@ export default {
         level: {
           type: 'andEq',
           column: 'level',
+          value: null
+        },
+        phrase: {
+          type: 'andLike',
+          column: 'phrase__en',
           value: null
         }
       },

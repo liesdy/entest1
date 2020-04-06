@@ -152,6 +152,10 @@ export default {
         let postData = {
           title: this.addTitle,
           en: null,
+          book: {
+            id: null,
+            book_name: null
+          },
           lesson: null,
           detail: {
             cn: null,
