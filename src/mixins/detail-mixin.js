@@ -22,7 +22,13 @@ export default {
       historyList: [],
       showHistoryDialog: false,
       canAdd: false,
-      rootData2: {}
+      rootData2: {},
+      rules: {
+        en: [
+          { required: true, message: '请输入英文', trigger: 'blur' }
+          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ]
+      }
     }
   },
   computed: {
@@ -30,15 +36,22 @@ export default {
   methods: {
     formatTime: formatTime,
     clone: clone,
-    confirmAdd () {
-      if (this.canAdd && (this.rootData2.en || this.rootData2.title)) {
-        this.api.add(this.rootData2).then(res => {
-          if (res.data && res.data.id) {
-            this.detailId = res.data.id
-            this.getDetail()
+    confirmAdd (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.canAdd && (this.rootData2.en || this.rootData2.title)) {
+            this.api.add(this.rootData2).then(res => {
+              if (res.data && res.data.id) {
+                this.detailId = res.data.id
+                this.getDetail()
+              }
+            })
           }
-        })
-      }
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     emitLeap (args) {
       this.$emit('emitLeap', args)
@@ -61,14 +74,21 @@ export default {
         vm.isView = true
       })
     },
-    upDateBaseDetail () {
-      let postData = this.rootData2
-      this.api.update(postData).then(res => {
-        if (res.data && res.data === 'success') {
-          this.$message('更新成功')
-          this.getDetail()
-          // this.isView = true
-          // this.isAdd = false
+    upDateBaseDetail (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let postData = this.rootData2
+          this.api.update(postData).then(res => {
+            if (res.data && res.data === 'success') {
+              this.$message('更新成功')
+              this.getDetail()
+              // this.isView = true
+              // this.isAdd = false
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false
         }
       })
     },

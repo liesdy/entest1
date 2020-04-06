@@ -4,15 +4,11 @@
       <el-col :span='20'>
         <template v-if='isView'>
           <div class="just-show">
-            <el-form-item label="英文:">
-              <span>{{rootData.en}}</span>
-            </el-form-item>
-            <el-form-item label="中文:">
-              <span>{{rootData.cn}}</span>
+            <el-form-item label="书名:">
+              <span>{{rootData.book_name}}</span>
             </el-form-item>
             <el-form-item label="详情:">
-              <!-- <span>{{rootData.contain}}</span> -->
-              <div v-html="rootData.contain"></div>
+              <span v-html="rootData.contain"></span>
             </el-form-item>
             <el-form-item label="备注:" >
               <span>{{rootData.remark}}</span>
@@ -20,19 +16,15 @@
           </div>
         </template>
         <template v-else>
-          <el-form-item label="英文">
-            <el-input v-model='rootData2.en' @input="checkExist" class="w-input"></el-input>
-            <template v-if='rootData2.en && isAdd'>
+          <el-form-item label="书名:">
+            <el-input v-model='rootData2.book_name' @input="checkExist" class="w-input"></el-input>
+            <template v-if='rootData2.book_name && isAdd'>
               <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i>
               <i v-else class="el-icon-error fz16 red-c">exist</i>
             </template>
           </el-form-item>
-          <el-form-item label="中文">
-            <el-input v-model='rootData2.cn' class="w-input"></el-input>
-          </el-form-item>
-          <el-form-item label="详情:">
-            <!-- <el-input v-model='rootData2.contain' class="w-input" type="textarea"></el-input> -->
-            <editor v-model='rootData2.contain'></editor>
+           <el-form-item label="详情:">
+            <editor  v-model='rootData2.contain'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-model='rootData2.remark' class="w-input"></el-input>
@@ -53,29 +45,6 @@
       <el-button @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>
     </el-row>
 
-    <template v-if='!isAdd'>
-      <partWord
-        class="mt10"
-        :rootData='rootData'
-        detailType='sentence'
-        @emitLeap='emitLeap'
-        @updated='updated'>
-      </partWord>
-      <partPhrase
-        class="mt10"
-        :rootData='rootData'
-        detailType='sentence'
-        @emitLeap='emitLeap'
-        @updated='updated'>
-      </partPhrase>
-      <partArticle
-        :rootData='rootData'
-        detailType='sentence'
-        @emitLeap='emitLeap'
-        @updated='updated'>
-      </partArticle>
-    </template>
-
     <el-dialog
       :modal='false'
       title="detail base history"
@@ -86,14 +55,11 @@
           <el-card hadow="always">
             <p class="mb10 pb10">{{item.author.name}} <span v-if='item.add'>创建了{{item.en}}的基础信息</span><span v-else>将 {{item.en}} 的基础信息修改为</span>:</p>
             <el-form class="just-show">
-              <el-form-item label="英文:">
-                <span>{{item.en}}</span>
-              </el-form-item>
-              <el-form-item label="中文:">
-                <span>{{item.cn}}</span>
+              <el-form-item label="书名:">
+                <span>{{item.book_name}}</span>
               </el-form-item>
               <el-form-item label="详情:">
-                <span>{{item.contain}}</span>
+                <span v-html="item.contain"></span>
               </el-form-item>
               <el-form-item label="备注:" >
                 <span>{{item.remark}}</span>
@@ -107,23 +73,28 @@
 </template>
 
 <script>
-import api from '../sentence/api.js'
+import api from '../book/api.js'
 import indexMixin from '@/mixins/detail-mixin'
+// import { formatTime } from '@/utils/commonUtils.js'
 export default {
-  name: 'detailOfSentences',
+  name: 'detailOfBook',
   mixins: [indexMixin],
+  components: {
+  },
   props: {
   },
   data () {
     return {
       api: api,
+      // isView: false,
       rootData: {
-        en: null,
-        cn: null,
+        book_name: null,
         contain: null,
         remark: null
       }
     }
+  },
+  computed: {
   },
   watch: {
   },
@@ -156,5 +127,14 @@ export default {
         font-size: 14px;
       }
     }
+  }
+  .edit-frame2 .fade2{
+    display: none
+  }
+  .edit-frame2:hover .fade2 {
+    display: inline-block;
+  }
+  .mb {
+    margin-bottom: 20px;
   }
 </style>

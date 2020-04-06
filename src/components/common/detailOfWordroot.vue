@@ -11,8 +11,7 @@
               <span>{{rootData.cn}}</span>
             </el-form-item>
             <el-form-item label="详情:">
-              <!-- <span>{{rootData.contain}}</span> -->
-              <div v-html="rootData.contain"></div>
+              <span v-html="rootData.contain"></span>
             </el-form-item>
             <el-form-item label="备注:" >
               <span>{{rootData.remark}}</span>
@@ -20,19 +19,18 @@
           </div>
         </template>
         <template v-else>
-          <el-form-item label="英文">
+          <el-form-item label="英文:">
             <el-input v-model='rootData2.en' @input="checkExist" class="w-input"></el-input>
             <template v-if='rootData2.en && isAdd'>
               <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i>
               <i v-else class="el-icon-error fz16 red-c">exist</i>
             </template>
           </el-form-item>
-          <el-form-item label="中文">
+          <el-form-item label="中文:" >
             <el-input v-model='rootData2.cn' class="w-input"></el-input>
           </el-form-item>
-          <el-form-item label="详情:">
-            <!-- <el-input v-model='rootData2.contain' class="w-input" type="textarea"></el-input> -->
-            <editor v-model='rootData2.contain'></editor>
+           <el-form-item label="详情:">
+            <editor  v-model='rootData2.contain'></editor>
           </el-form-item>
           <el-form-item label="备注:" >
             <el-input v-model='rootData2.remark' class="w-input"></el-input>
@@ -57,23 +55,10 @@
       <partWord
         class="mt10"
         :rootData='rootData'
-        detailType='sentence'
+        detailType='wordroot'
         @emitLeap='emitLeap'
         @updated='updated'>
       </partWord>
-      <partPhrase
-        class="mt10"
-        :rootData='rootData'
-        detailType='sentence'
-        @emitLeap='emitLeap'
-        @updated='updated'>
-      </partPhrase>
-      <partArticle
-        :rootData='rootData'
-        detailType='sentence'
-        @emitLeap='emitLeap'
-        @updated='updated'>
-      </partArticle>
     </template>
 
     <el-dialog
@@ -93,7 +78,7 @@
                 <span>{{item.cn}}</span>
               </el-form-item>
               <el-form-item label="详情:">
-                <span>{{item.contain}}</span>
+                <span v-html="item.contain"></span>
               </el-form-item>
               <el-form-item label="备注:" >
                 <span>{{item.remark}}</span>
@@ -107,16 +92,20 @@
 </template>
 
 <script>
-import api from '../sentence/api.js'
+import api from '../wordRoot/api.js'
 import indexMixin from '@/mixins/detail-mixin'
+// import { formatTime } from '@/utils/commonUtils.js'
 export default {
-  name: 'detailOfSentences',
+  name: 'detailOfWordroot',
   mixins: [indexMixin],
+  components: {
+  },
   props: {
   },
   data () {
     return {
       api: api,
+      // isView: false,
       rootData: {
         en: null,
         cn: null,
@@ -124,6 +113,8 @@ export default {
         remark: null
       }
     }
+  },
+  computed: {
   },
   watch: {
   },
@@ -156,5 +147,14 @@ export default {
         font-size: 14px;
       }
     }
+  }
+  .edit-frame2 .fade2{
+    display: none
+  }
+  .edit-frame2:hover .fade2 {
+    display: inline-block;
+  }
+  .mb {
+    margin-bottom: 20px;
   }
 </style>

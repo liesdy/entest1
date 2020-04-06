@@ -33,6 +33,11 @@
         prop="cn"
         label="中文"
         width="140">
+        <template slot-scope="scope" v-if='scope.row.cn'>
+          <p v-for='(item, index) in scope.row.cn' :key="index">
+            {{ toName(item.pos) }} &nbsp; {{item.cn}}
+          </p>
+        </template>
       </el-table-column>
       <el-table-column
         prop="pos"
@@ -66,7 +71,7 @@
     <el-dialog
       :title="dialogTitle"
       :visible.sync="showDialog"
-      width="800px">
+      width="900px">
       <component
         v-if='showDialog'
         :add='isAdd'
@@ -108,6 +113,21 @@ export default {
   watch: {
   },
   methods: {
+    toName (index) {
+      let posList = [
+        'n.',
+        'vi.',
+        'vt.',
+        'pron.',
+        'adj.',
+        'adv.',
+        'art.',
+        'prep.',
+        'conj.',
+        'interj.'
+      ]
+      return posList[index - 1]
+    }
   },
   mounted () {
   }

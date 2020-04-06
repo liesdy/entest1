@@ -13,6 +13,8 @@ import DetailOfWords from './detailOfWords.vue'
 import DetailOfPhrases from './detailOfPhrases.vue'
 import DetailOfArticles from './detailOfArticles.vue'
 import DetailOfSentences from './detailOfSentences.vue'
+import DetailOfBook from './detailOfBook.vue'
+import DetailOfWordroot from './detailOfWordroot.vue'
 import FrameEdit from './frameEdit.vue'
 import SelectArticleList from './selectArticleList.vue'
 import SelectWordRootList from './selectWordRootList.vue'
@@ -33,6 +35,8 @@ Vue.component(DetailOfWords.name, DetailOfWords)
 Vue.component(DetailOfPhrases.name, DetailOfPhrases)
 Vue.component(DetailOfSentences.name, DetailOfSentences)
 Vue.component(DetailOfArticles.name, DetailOfArticles)
+Vue.component(DetailOfBook.name, DetailOfBook)
+Vue.component(DetailOfWordroot.name, DetailOfWordroot)
 Vue.component(FrameEdit.name, FrameEdit)
 Vue.component(SelectArticleList.name, SelectArticleList)
 Vue.component(SelectWordRootList.name, SelectWordRootList)

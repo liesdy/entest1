@@ -44,6 +44,16 @@ export default new Router({
           path: '/article',
           name: 'article',
           component: () => import('@/components/article')
+        },
+        {
+          path: '/book',
+          name: 'book',
+          component: () => import('@/components/book')
+        },
+        {
+          path: '/wordRoot',
+          name: 'wordRoot',
+          component: () => import('@/components/wordRoot')
         }
       ]
     }

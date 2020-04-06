@@ -1,5 +1,5 @@
 <template>
-  <el-form label-position="right" label-width="80px">
+  <el-form label-position="right" label-width="80px" :model="rootData2" :rules="rules" ref="ruleForm">
     <el-row class="edit-frame">
       <el-col :span='20'>
         <template v-if='isView'>
@@ -7,11 +7,10 @@
             <el-form-item label="英文:">
               <span>{{rootData.en}}</span>
             </el-form-item>
-            <el-form-item label="中文:">
-              <span>{{rootData.cn}}</span>
-            </el-form-item>
-            <el-form-item label="词性:">
-              <span>{{rootData.pos}}</span>
+            <el-form-item label="释义:">
+              <p v-for='(item, index) in rootData.cn' :key="index">
+                {{ toName(item.pos) }}  {{item.cn}}
+              </p>
             </el-form-item>
             <el-form-item label="发音:">
               <span>{{rootData.detail.pronounce}}</span>
@@ -33,7 +32,10 @@
               <i v-else class="el-icon-error fz16 red-c">exist</i>
             </template>
           </el-form-item>
-          <el-form-item label="中文:">
+          <el-form-item label="发音:">
+            <el-input v-if='rootData2.detail' v-model='rootData2.detail.pronounce' class="w-input"></el-input>
+          </el-form-item>
+          <!-- <el-form-item label="中文:">
             <el-input v-model='rootData2.cn' class="w-input"></el-input>
           </el-form-item>
           <el-form-item label="词性:">
@@ -45,9 +47,44 @@
                 :value="item">
               </el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item label="发音:">
-            <el-input v-if='rootData2.detail' v-model='rootData2.detail.pronounce' class="w-input"></el-input>
+          </el-form-item> -->
+          <el-form-item label="中文:">
+            <el-row
+              v-for='(cnitem, index) in rootData2.cn'
+              :key='index'
+              class="edit-frame2 mb">
+              <el-col :span="10">
+                <el-form-item
+                  :prop="'cn.' + index + '.pos'"
+                  :rules="{
+                    required: true, message: '词性不能为空', trigger: 'change'
+                  }"
+                  label-width='0'>
+                  <el-select v-model="cnitem.pos" placeholder="请选择词性" class="w-input" required>
+                    <el-option
+                      v-for="item in posList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="10">
+                <el-form-item
+                  :prop="'cn.' + index + '.cn'"
+                  :rules="{
+                    required: true, message: '中文释义不能为空', trigger: 'blur'
+                  }"
+                  label-width='0'>
+                  <el-input v-model='cnitem.cn' class="w-input" placeholder="请填写中文释义" required></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="4">
+                <el-button v-if='index == rootData2.cn.length - 1' type="primary" @click="addcn" icon="el-icon-plus" circle size='small'></el-button>
+                <el-button class='fade2' type="danger" @click="deletecn(index)" icon="el-icon-delete" circle size='small'></el-button>
+              </el-col>
+            </el-row>
           </el-form-item>
           <el-form-item label="详情:">
             <!-- <el-input v-if='rootData2.detail' v-model='rootData2.detail.contain' type="textarea"></el-input> -->
@@ -60,7 +97,7 @@
       </el-col>
       <el-col :span='4'>
         <!-- 确认修改 -->
-        <el-button class='fade' @click="upDateBaseDetail" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
+        <el-button class='fade' @click="upDateBaseDetail('ruleForm')" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
         <!-- 取消 -->
         <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
         <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
@@ -69,7 +106,7 @@
     </el-row>
     <!-- 确认添加 -->
     <el-row type="flex" justify="center" v-if='isAdd'>
-      <el-button @click="confirmAdd" type="primary" round>确认添加</el-button>
+      <el-button @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>
     </el-row>
 
     <template v-if='!isAdd'>
@@ -115,17 +152,17 @@
               <el-form-item label="英文:">
                 <span>{{item.en}}</span>
               </el-form-item>
-              <el-form-item label="中文:">
-                <span>{{item.cn}}</span>
-              </el-form-item>
-              <el-form-item label="词性:">
-                <span>{{item.pos}}</span>
+              <el-form-item label="释义:">
+                <span v-for='(cnitem, index) in rootData.cn' :key="index">
+                  {{ toName(cnitem.pos) }}  {{cnitem.cn}}
+                </span>
+                <!-- <span>{{item.cn}}</span> -->
               </el-form-item>
               <el-form-item label="发音:">
                 <span>{{item.pronounce}}</span>
               </el-form-item>
               <el-form-item label="详情:">
-                <span>{{item.contain}}</span>
+                <span v-html="item.contain"></span>
               </el-form-item>
               <el-form-item label="备注:" >
                 <span>{{item.remark}}</span>
@@ -155,7 +192,12 @@ export default {
       // isView: false,
       rootData: {
         en: null,
-        cn: null,
+        cn: [
+          {
+            pos: null,
+            cn: null
+          }
+        ],
         pos: null,
         related_word: null,
         detail: {
@@ -167,16 +209,46 @@ export default {
         }
       },
       posList: [
-        'n. 名词',
-        'vi. 不及物动词',
-        'vt. 及物动词',
-        'pron. 代词',
-        'adj. 形容词',
-        'adv. 副词',
-        'art. 冠词',
-        'prep. 介词',
-        'conj. 连词',
-        'interj. 感叹词'
+        {
+          value: 1,
+          label: 'n. 名词'
+        },
+        {
+          value: 2,
+          label: 'vi. 不及物动词'
+        },
+        {
+          value: 3,
+          label: 'vt. 及物动词'
+        },
+        {
+          value: 4,
+          label: 'pron. 代词'
+        },
+        {
+          value: 5,
+          label: 'adj. 形容词'
+        },
+        {
+          value: 6,
+          label: 'adv. 副词'
+        },
+        {
+          value: 7,
+          label: 'art. 冠词'
+        },
+        {
+          value: 8,
+          label: 'prep. 介词'
+        },
+        {
+          value: 9,
+          label: 'conj. 连词'
+        },
+        {
+          value: 10,
+          label: 'interj. 感叹词'
+        }
       ]
     }
   },
@@ -207,10 +279,46 @@ export default {
             remark: null
           }
         }
+        if (!vm.rootData.cn || vm.rootData.cn.length < 1) {
+          vm.rootData.cn = [
+            {
+              pos: null,
+              cn: null
+            }
+          ]
+        }
         loading.close()
         vm.isAdd = false
         vm.isView = true
       })
+    },
+    addcn () {
+      this.rootData2.cn.push({
+        pos: null,
+        cn: null
+      })
+    },
+    deletecn (index) {
+      if (this.rootData2.cn && this.rootData2.cn.length > 1) {
+        this.rootData2.cn.splice(index, 1)
+      } else {
+        this.$message('不...不能再删了...')
+      }
+    },
+    toName (index) {
+      let posList = [
+        'n.',
+        'vi.',
+        'vt.',
+        'pron.',
+        'adj.',
+        'adv.',
+        'art.',
+        'prep.',
+        'conj.',
+        'interj.'
+      ]
+      return posList[index - 1]
     }
   },
   mounted () {
@@ -240,5 +348,14 @@ export default {
         font-size: 14px;
       }
     }
+  }
+  .edit-frame2 .fade2{
+    display: none
+  }
+  .edit-frame2:hover .fade2 {
+    display: inline-block;
+  }
+  .mb {
+    margin-bottom: 20px;
   }
 </style>

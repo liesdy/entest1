@@ -21,13 +21,17 @@ export default {
         word: 'word detail',
         phrase: 'phrase detail',
         sentence: 'sentence detail',
-        article: 'article detail'
+        article: 'article detail',
+        wordroot: 'wordroot detail',
+        book: 'book detail'
       },
       componentNameOfType: {
         word: 'detailOfWords',
         phrase: 'detailOfPhrases',
         sentence: 'detailOfSentences',
-        article: 'detailOfArticles'
+        article: 'detailOfArticles',
+        wordroot: 'detailOfWordroot',
+        book: 'detailOfBook'
       },
       currentPage: 1,
       pageSize: 10

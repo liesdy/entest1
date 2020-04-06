@@ -1,5 +1,5 @@
 <template>
-  <el-form label-position="right" label-width="80px">
+  <el-form label-position="right" label-width="80px" :model="rootData2" :rules="rules" ref="ruleForm">
     <el-row class="edit-frame">
       <el-col :span='20'>
         <template v-if='isView'>
@@ -41,7 +41,7 @@
       </el-col>
       <el-col :span='4'>
         <!-- 确认修改 -->
-        <el-button class='fade' @click="upDateBaseDetail" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
+        <el-button class='fade' @click="upDateBaseDetail('ruleForm')" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
         <!-- 取消 -->
         <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
         <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
@@ -50,7 +50,7 @@
     </el-row>
     <!-- 确认添加 -->
     <el-row type="flex" justify="center" v-if='isAdd'>
-      <el-button @click="confirmAdd" type="primary" round>确认添加</el-button>
+      <el-button @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>
     </el-row>
 
     <template v-if='!isAdd'>

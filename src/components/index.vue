@@ -26,7 +26,7 @@
         </el-row>
         <el-row class="menu-line">
           <router-link to="/word">
-            <el-col :offset="7" :span='3' >
+            <el-col :offset="6" :span='3' >
               <el-button type="text">单词</el-button>
             </el-col>
           </router-link>
@@ -45,11 +45,21 @@
               <el-button type="text">课文</el-button>
             </el-col>
           </router-link>
-          <router-link to="/phrase">
+          <router-link to="/wordroot">
+            <el-col :span='3'>
+              <el-button type="text">词根</el-button>
+            </el-col>
+          </router-link>
+          <router-link to="/book">
+            <el-col :span='3'>
+              <el-button type="text">书本</el-button>
+            </el-col>
+          </router-link>
+          <!-- <router-link to="/phrase">
             <el-col :span='3'>
               <el-button type="text">查询</el-button>
             </el-col>
-          </router-link>
+          </router-link> -->
         </el-row>
       </el-col>
     </el-row>
