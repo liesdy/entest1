@@ -2,7 +2,7 @@
   <div class="frame">
     <el-row class='title-line'>
       <el-col :span='6'>
-        <h1>LOGO</h1>
+        <h1>EnTry</h1>
       </el-col>
       <el-col :span='18'>
         <el-row>

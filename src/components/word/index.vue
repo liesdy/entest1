@@ -61,6 +61,14 @@
         label="Level">
       </el-table-column>
       <el-table-column
+        prop="stared"
+        label="收藏">
+        <template slot-scope="scope">
+          <i v-if='scope.row.stared' class="el-icon-star-on"></i>
+          <i v-else class="el-icon-star-off"></i>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="MORE">
         <template slot-scope="scope">
           <el-button @click="openDialog(false, 'word', scope.row)" type="primary" size="small" round>详情</el-button>
