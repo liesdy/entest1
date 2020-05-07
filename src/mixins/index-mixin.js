@@ -34,7 +34,8 @@ export default {
         book: 'detailOfBook'
       },
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      dialogWidth: '900px'
     }
   },
   computed: {
@@ -67,13 +68,16 @@ export default {
         currentPage: this.currentPage,
         pageSize: this.pageSize
       }
+      console.log('vm.api.list: ', vm.api.list)
       vm.api.list(postData).then((result) => {
         if (result.data) {
           vm.baseData = result.data
+          vm.showDialog = false
         }
       })
     },
     openDialog (add, detailType, row) {
+      this.dialogWidth = '900px'
       this.detailType = detailType
       if (add) {
         this.isAdd = true
@@ -103,6 +107,25 @@ export default {
             cb(resList)
           }
         })
+      }
+    },
+    dialogHandlerSuccess () {
+      this.findList()
+    },
+    levelColor (row) {
+      switch (row.starData.hard_level) {
+        case 1:
+          return 'color-level1'
+        case 2:
+          return 'color-level2'
+        case 3:
+          return 'color-level3'
+        case 4:
+          return 'color-level4'
+        case 5:
+          return 'color-level5'
+        default:
+          break
       }
     }
   },

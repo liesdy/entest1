@@ -10,6 +10,10 @@ export default {
     acceptedId: {
       type: Number,
       default: null
+    },
+    propApi: {
+      type: String,
+      default: null
     }
   },
   data () {
@@ -91,6 +95,9 @@ export default {
           return false
         }
       })
+    },
+    dialogHandlerSuccess () {
+      this.getDetail()
     },
     updated () {
       this.getDetail()

@@ -11,7 +11,7 @@
       <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'sentence')" round>新增</el-button>
     </el-row>
     <cm-table
-      :pageDefaultSize='20'
+      :pageDefaultSize='10'
       :baseData='baseData'
       @pageChange='pageChange'>
       <el-table-column
@@ -54,7 +54,8 @@
     <el-dialog
       :title="dialogTitle"
       :visible.sync="showDialog"
-      width="70%">
+      :before-close='findList'
+      :width="dialogWidth">
       <component
         v-if='showDialog'
         :add='isAdd'

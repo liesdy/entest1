@@ -15,11 +15,27 @@ p, h1, h2, h3, h4, h5, h6{
   background-color: #f74747 !important;
 }
 
-.primary-c {
+.blue-c {
   color: #419fff;
 }
 
-.primary-bg {
+.color-level1{
+  color: #f74747
+}
+.color-level2 {
+  color: #FF9900
+}
+.color-level3 {
+  color: #ddd700
+}
+.color-level4 {
+  color: #00df2e
+}
+.color-level5 {
+  color: #00d2ff
+}
+
+.blue-bg {
   background-color: #419fff;
 }
 
@@ -184,6 +200,14 @@ a {
   margin: 20px;
 }
 
+.mla {
+  margin-left: auto;
+}
+
+.mra {
+  margin-right: auto;
+}
+
 .p0 {
   padding: 0;
 }
@@ -234,6 +258,10 @@ a {
 
 .pb10 {
   padding-bottom: 10px;
+}
+
+.pb15 {
+  padding-bottom: 15px;
 }
 
 .pb20 {

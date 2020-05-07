@@ -21,6 +21,8 @@ import SelectWordRootList from './selectWordRootList.vue'
 import SelectWordList from './selectWordList.vue'
 import SelectPhraseList from './selectPhraseList.vue'
 import SelectSentenceList from './selectSentenceList.vue'
+import Star from './star.vue'
+import StarIcon from './starIcon.vue'
 import CmTable from './cmTable.vue'
 import HistoryList from './historyList.vue'
 import Editor from './editor.vue'
@@ -43,6 +45,8 @@ Vue.component(SelectWordRootList.name, SelectWordRootList)
 Vue.component(SelectWordList.name, SelectWordList)
 Vue.component(SelectPhraseList.name, SelectPhraseList)
 Vue.component(SelectSentenceList.name, SelectSentenceList)
+Vue.component(Star.name, Star)
+Vue.component(StarIcon.name, StarIcon)
 Vue.component(CmTable.name, CmTable)
 Vue.component(HistoryList.name, HistoryList)
 Vue.component(Editor.name, Editor)

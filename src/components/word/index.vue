@@ -22,7 +22,7 @@
         :data="tableData"
         style="width: 100%"> -->
     <cm-table
-      :pageDefaultSize='20'
+      :pageDefaultSize='10'
       :baseData='baseData'
       @pageChange='pageChange'>
       <el-table-column
@@ -41,11 +41,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="pos"
-        width="80"
-        label="词性">
-      </el-table-column>
-      <el-table-column
         width="300"
         label="出处">
         <template slot-scope="scope" v-if='scope.row.article'>
@@ -57,15 +52,11 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="level"
-        label="Level">
-      </el-table-column>
-      <el-table-column
         prop="stared"
         label="收藏">
         <template slot-scope="scope">
-          <i v-if='scope.row.stared' class="el-icon-star-on"></i>
-          <i v-else class="el-icon-star-off"></i>
+          <!-- 收藏 -->
+          <starIcon :baseData='scope.row' starType='word' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
         </template>
       </el-table-column>
       <el-table-column
@@ -80,10 +71,12 @@
     <el-dialog
       :title="dialogTitle"
       :visible.sync="showDialog"
-      width="900px">
+      :before-close='findList'
+      :width="dialogWidth">
       <component
         v-if='showDialog'
         :add='isAdd'
+        :row='choicedRow'
         :acceptedId='choicedId'
         :is="componentName"
         @emitLeap='LeapTo'
@@ -121,7 +114,8 @@ export default {
           value: null
         }
       },
-      detailType: 'word'
+      detailType: 'word',
+      choicedRow: null
     }
   },
   watch: {
@@ -142,6 +136,12 @@ export default {
       ]
       return posList[index - 1]
     }
+    // showStarDialog (row) {
+    //   this.choicedRow = row
+    //   this.dialogWidth = '400px'
+    //   this.detailType = 'star'
+    //   this.showDialog = true
+    // }
   },
   mounted () {
   }

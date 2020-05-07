@@ -41,7 +41,8 @@
     <el-dialog
       :title="dialogTitle"
       :visible.sync="showDialog"
-      width="900px">
+      :before-close='findList'
+      :width="dialogWidth">
       <component
         v-if='showDialog'
         :add='isAdd'

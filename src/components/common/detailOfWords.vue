@@ -1,11 +1,13 @@
 <template>
   <el-form label-position="right" label-width="80px" :model="rootData2" :rules="rules" ref="ruleForm">
     <el-row class="edit-frame">
+
+      <!-- 基础信息左侧 -->
       <el-col :span='20'>
         <template v-if='isView'>
           <div class="just-show">
             <el-form-item label="英文:">
-              <span>{{rootData.en}}</span>
+              <span>{{rootData.en}}</span> <starIcon :baseData='rootData' :inDetail='true'  starType='word' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
             </el-form-item>
             <el-form-item label="释义:">
               <p v-for='(item, index) in rootData.cn' :key="index">
@@ -35,19 +37,6 @@
           <el-form-item label="发音:">
             <el-input v-if='rootData2.detail' v-model='rootData2.detail.pronounce' class="w-input"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="中文:">
-            <el-input v-model='rootData2.cn' class="w-input"></el-input>
-          </el-form-item>
-          <el-form-item label="词性:">
-            <el-select v-model="rootData2.pos" placeholder="请选择" class="w-input">
-              <el-option
-                v-for="item in posList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item> -->
           <el-form-item label="中文:">
             <el-row
               v-for='(cnitem, index) in rootData2.cn'
@@ -95,14 +84,24 @@
           </el-form-item>
         </template>
       </el-col>
+
+      <!-- 基础信息右侧 -->
       <el-col :span='4'>
-        <!-- 确认修改 -->
-        <el-button class='fade' @click="upDateBaseDetail('ruleForm')" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
-        <!-- 取消 -->
-        <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
-        <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
-        <el-button class='fade' v-if='isView' @click="showHistory" type="warning" icon="el-icon-time" circle size='small'></el-button>
+        <!-- <el-row class="mb10">
+          <span>收藏状态</span> <starIcon :baseData='rootData'></starIcon>
+        </el-row> -->
+        <el-row>
+          <!-- 确认修改 -->
+          <el-button class='fade' @click="upDateBaseDetail('ruleForm')" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
+          <!-- 取消 -->
+          <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
+          <!-- 编辑 -->
+          <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
+          <!-- 查看历史 -->
+          <el-button class='fade' v-if='isView' @click="showHistory" type="warning" icon="el-icon-time" circle size='small'></el-button>
+        </el-row>
       </el-col>
+
     </el-row>
     <!-- 确认添加 -->
     <el-row type="flex" justify="center" v-if='isAdd'>

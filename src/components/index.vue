@@ -133,8 +133,8 @@ export default {
     }
   },
   mounted () {
-    console.log('localStorage.token: ', localStorage.token)
-    console.log('localStorage.userName: ', localStorage.userName)
+    // console.log('localStorage.token: ', localStorage.token)
+    // console.log('localStorage.userName: ', localStorage.userName)
     if (localStorage.userId) {
       let postData = {
         id: localStorage.userId

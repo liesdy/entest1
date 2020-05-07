@@ -20,15 +20,53 @@ service.interceptors.request.use(function (config) {
 service.interceptors.response.use(
   response => {
     const res = response.data
+    // if (!res.login_ed) {
+    //   localStorage.token = null
+    //   localStorage.userName = null
+    //   localStorage.userId = null
+    // }
     return res
   })
+function checkName () {
+  return new Promise((resolve, reject) => {
+    service({
+      url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
+      method: 'post',
+      data: null
+    }).then(res => {
+      if (res.data.result === 'success') {
+        resolve(res.data.result)
+      } else {
+        // resolve(res.data.result)
+        reject(res.data.result)
+      }
+    })
+  })
+}
 export default {
   post (url, data) {
-    return service({
-      url,
-      method: 'post',
-      data
+    return checkName().then(res => {
+      return service({
+        url,
+        method: 'post',
+        data
+      })
+    }).catch(res => {
+      console.log('localStorage: ', localStorage)
+      localStorage.removeItem('token')
+      localStorage.removeItem('userName')
+      localStorage.removeItem('userId')
+      return service({
+        url,
+        method: 'post',
+        data
+      })
     })
+    // return service({
+    //   url,
+    //   method: 'post',
+    //   data
+    // })
   }
   // findOne(prefix, id) {
   //   return request({
