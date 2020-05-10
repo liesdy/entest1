@@ -5,7 +5,7 @@
         <template v-if='isView'>
           <div class="just-show">
             <el-form-item label="标题:">
-              <span>{{rootData.title}}</span>
+              <span>{{rootData.title}}</span> <starIcon :baseData='rootData' :inDetail='true'  starType='article' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
             </el-form-item>
             <el-form-item label="来源:">
               <span v-if='rootData.book'>{{rootData.book.book_name}}</span><span v-if='rootData.lesson'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lesson{{rootData.lesson}}</span>

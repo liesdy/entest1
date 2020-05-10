@@ -5,7 +5,7 @@
         <template v-if='isView'>
           <div class="just-show">
             <el-form-item label="英文:">
-              <span>{{rootData.en}}</span>
+              <span>{{rootData.en}}</span> <starIcon :baseData='rootData' :inDetail='true'  starType='sentence' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
             </el-form-item>
             <el-form-item label="中文:">
               <span>{{rootData.cn}}</span>

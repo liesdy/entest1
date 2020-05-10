@@ -35,9 +35,17 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="level"
         label="Level">
+      </el-table-column> -->
+      <el-table-column
+        prop="stared"
+        label="收藏">
+        <template slot-scope="scope">
+          <!-- 收藏 -->
+          <starIcon :baseData='scope.row' starType='sentence' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
+        </template>
       </el-table-column>
       <el-table-column
         label="MORE">

@@ -29,6 +29,14 @@
         min-width="140">
       </el-table-column>
       <el-table-column
+        prop="stared"
+        label="收藏">
+        <template slot-scope="scope">
+          <!-- 收藏 -->
+          <starIcon :baseData='scope.row' starType='article' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="MORE">
         <template slot-scope="scope">
           <el-button @click="openDialog(false, 'article', scope.row)" type="text" size="small" >MORE</el-button>
