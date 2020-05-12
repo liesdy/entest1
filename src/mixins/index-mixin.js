@@ -68,7 +68,6 @@ export default {
         currentPage: this.currentPage,
         pageSize: this.pageSize
       }
-      console.log('vm.api.list: ', vm.api.list)
       vm.api.list(postData).then((result) => {
         if (result.data) {
           vm.baseData = result.data

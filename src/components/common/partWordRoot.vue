@@ -30,7 +30,7 @@
       </template>
       <template v-else>
         <p v-for='item in rootData.wordsroot' :key='item.id'>
-          <el-button type='text' @click='emitLeap(item.id, "wordsroot")'>&nbsp;{{ item.en }}</el-button>
+          <el-button type='text' @click='emitLeap(item.id, "wordroot")'>&nbsp;{{ item.en }}</el-button>
         </p>
       </template>
     </el-form-item>

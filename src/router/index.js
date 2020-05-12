@@ -8,22 +8,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/search',
+      redirect: '/entry',
       component: () => import('@/components/index'),
       children: [
+        // {
+        //   path: '/helloworld',
+        //   name: 'HelloWorld',
+        //   component: () => import('@/components/helloWorld.vue')
+        //   // meta: {
+        //   //   title: 'emmm',
+        //   //   icon: 'emmm'
+        //   // }
+        // },
         {
-          path: '/helloworld',
-          name: 'HelloWorld',
-          component: () => import('@/components/helloWorld.vue')
-          // meta: {
-          //   title: 'emmm',
-          //   icon: 'emmm'
-          // }
-        },
-        {
-          path: '/search',
-          name: 'search',
-          component: () => import('@/components/search')
+          path: '/entry',
+          name: 'entry',
+          component: () => import('@/components/entry')
         },
         {
           path: '/word',

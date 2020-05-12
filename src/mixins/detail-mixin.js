@@ -10,10 +10,6 @@ export default {
     acceptedId: {
       type: Number,
       default: null
-    },
-    propApi: {
-      type: String,
-      default: null
     }
   },
   data () {
