@@ -1,6 +1,6 @@
 <template>
   <div class='entry'>
-    <el-row type='flex' justify="center">
+    <el-row type='flex' justify="center" class='m20 p20'>
       <el-col :span='12'>
         <el-autocomplete
           suffix-icon="el-icon-search"
@@ -22,7 +22,20 @@
       </el-col>
     </el-row>
 
-    <div ref="chart1" style="width:100%;height:376px"></div>
+    <el-row class='mt10' type='flex' v-if='user'>
+      <el-col :span='12'>
+        <h3 class='tc-s chart-title'>站点统计</h3>
+        <div ref="chart1" style="width:100%;height:400px"></div>
+      </el-col>
+      <el-col :span='12'>
+        <h3 class='tc-s chart-title'>我的关注</h3>
+        <div ref="chart2" style="width:100%;height:400px"></div>
+      </el-col>
+    </el-row>
+    <el-row v-else>
+      <h3 class='tc-s chart-title'>站点统计</h3>
+      <div ref="chart3" style="width:100%;height:500px"></div>
+    </el-row>
 
     <el-dialog
       :title="dialogTitle"
@@ -103,14 +116,28 @@ export default {
         api: wordApi
       },
       detailType: 'word',
-      totalData: [],
       state: null
+    }
+  },
+  computed: {
+    user () {
+      if (this.$store.state.user) {
+        return this.$store.state.user
+      } else {
+        return null
+      }
     }
   },
   watch: {
     searchType (val, oldVal) {
       this.detailType = val.value
       this.currentApi = val.api
+    },
+    user (val, oldVal) {
+      this.getTotal()
+      if (val) {
+        this.getUserStarData()
+      }
     }
   },
   methods: {
@@ -155,38 +182,78 @@ export default {
     getTotal () {
       let vm = this
       api.getTotal().then(res => {
-        vm.totalData = res.data.totalNumberList
-        vm.getEchartData1()
+        let totalData = res.data.totalNumberList
+        vm.showTotalChart(totalData)
       })
     },
-    getEchartData1 () {
-      const chart1 = this.$refs.chart1
-      if (chart1) {
-        const myChart = this.$echarts.init(
-          // document.getElementById("chart-part1")
-          chart1
-        )
-        const option = {
-          title: {
-            text: '数据汇总'
-          },
-          tooltip: {},
-          // legend: {
-          //   data: ['统计']
-          // },
-          xAxis: {
-            data: ['单词', '短语', '例句', '文章', '书本', '词根']
-          },
-          yAxis: {},
-          series: [{
-            name: '统计',
-            type: 'bar',
-            data: this.totalData
-          }]
+    getUserStarData () {
+      let vm = this
+      api.getUserStarData().then(res => {
+        let userStarData = res.data.totalNumberList
+        vm.showUserStarChart(userStarData)
+      })
+    },
+    showTotalChart (totalData) {
+      const option = {
+        // title: {
+        //   text: '数据汇总'
+        // },
+        tooltip: {},
+        // legend: {
+        //   data: ['统计']
+        // },
+        xAxis: {
+          data: ['单词', '短语', '例句', '文章', '书本', '词根']
+        },
+        yAxis: {},
+        series: [{
+          name: '统计',
+          type: 'bar',
+          data: totalData
+        }]
+      }
+      this.initChart('chart1', option)
+      this.initChart('chart3', option)
+    },
+    showUserStarChart (userStarData) {
+      const option = {
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        series: {
+          name: '分类',
+          type: 'pie',
+          data: userStarData.filter(item => item.value > 0)
+        },
+        textStyle: {
+          color: 'rgba(100, 100, 100, 0.6)'
+        },
+        lineStyle: {
+          color: 'rgba(100, 100, 100, 0.3)'
         }
-        myChart.setOption(option)
+        // visualMap: {
+        //   // 不显示 visualMap 组件，只用于明暗度的映射
+        //   show: false,
+        //   // 映射的最小值为 80
+        //   min: 80,
+        //   // 映射的最大值为 600
+        //   max: 600,
+        //   inRange: {
+        //     // 明暗度的范围是 0 到 1
+        //     colorLightness: [0, 1]
+        //   }
+        // }
+      }
+      this.initChart('chart2', option)
+    },
+    initChart (refsName, option) {
+      let chartNode = this.$refs[refsName]
+      if (chartNode) {
+        let thisChart = this.$echarts.init(chartNode)
+        thisChart.setOption(option)
         window.addEventListener('resize', function () {
-          myChart.resize()
+          thisChart.resize()
         })
       }
     }
@@ -201,6 +268,9 @@ export default {
   },
   mounted () {
     this.getTotal()
+    if (this.user) {
+      this.getUserStarData()
+    }
   }
 }
 </script>
@@ -220,5 +290,13 @@ li {
 }
 a {
   color: #42b983;
+}
+.chart-title {
+  position: relative;
+  top: 20px;
+  font-weight: normal;
+  font-size: 20px;
+  color: #777;
+  text-shadow:0px 3px 3px #ddd;
 }
 </style>

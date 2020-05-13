@@ -29,33 +29,34 @@
           </el-row>
           <el-row class="menu-line">
             <router-link to="/word">
-              <el-col :offset="6" :span='3' >
-                <el-button type="text">单词</el-button>
+              <!-- <el-col :offset="6" :span='3' > -->
+              <el-col :span='4' >
+                <el-button type="text"><span>单词</span> <br> <span class='s-menu'>word</span></el-button>
               </el-col>
             </router-link>
             <router-link to="/phrase">
-              <el-col :span='3'>
-                <el-button type="text">短语</el-button>
+              <el-col :span='4'>
+                <el-button type="text"><span>短语</span> <br> <span class='s-menu'>phrase</span></el-button>
               </el-col>
             </router-link>
             <router-link to="/sentence">
-              <el-col :span='3'>
-                <el-button type="text">例句</el-button>
+              <el-col :span='4'>
+                <el-button type="text"><span>例句</span> <br> <span class='s-menu'>sentence</span></el-button>
               </el-col>
             </router-link>
             <router-link to="/article">
-              <el-col :span='3'>
-                <el-button type="text">课文</el-button>
+              <el-col :span='4'>
+                <el-button type="text"><span>课文</span> <br> <span class='s-menu'>article</span></el-button>
               </el-col>
             </router-link>
             <router-link to="/wordroot">
-              <el-col :span='3'>
-                <el-button type="text">词根</el-button>
+              <el-col :span='4'>
+                <el-button type="text"><span>词根</span> <br> <span class='s-menu'>wordroot</span></el-button>
               </el-col>
             </router-link>
             <router-link to="/book">
-              <el-col :span='3'>
-                <el-button type="text">书本</el-button>
+              <el-col :span='4'>
+                <el-button type="text"><span>书本</span> <br> <span class='s-menu'>book</span></el-button>
               </el-col>
             </router-link>
             <!-- <router-link to="/phrase">
@@ -177,9 +178,11 @@ export default {
     display: flex;
     align-items: center;
     padding-left: 10px;
+    position: relative;
+    top: 14px;
   }
   .logo h1 {
-    font:italic bold 48px/48px arial,sans-serif;
+    font:italic bold 54px/54px arial,sans-serif;
     color: rgb(255, 28, 28);
     letter-spacing: 3px;
     text-shadow:2px 1px 3px rgba(255, 28, 28, 0.514);
@@ -193,9 +196,25 @@ export default {
     left: 1px;
   }
   .main-box {
-    box-shadow: 0 -5px 5px #EEE;
-    padding: 20px 15px 0;
+    box-shadow: 0 -7px 7px #EEE;
+    padding: 25px 20px 0;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 15px;
+  }
+  .menu-line {
+    position: relative;
+    top: 5px;
+    left: 72px;
+  }
+  .menu-line >>> .el-button--text {
+    color: #666;
+    font-size: 14px;
+    text-align: left
+  }
+  .menu-line .s-menu {
+    color: #eee;
+    text-align: left;
+    letter-spacing: 2px;
+    font:normal normal 14px/20px arial,sans-serif;
   }
 </style>
