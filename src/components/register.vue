@@ -9,11 +9,11 @@
       <el-input class="w-input" v-model="form.password"></el-input>
     </el-form-item>
     <el-form-item label="确认密码">
-      <el-input class="w-input" v-model="form.repassword"></el-input>
+      <el-input type="password" class="w-input" v-model="form.repassword"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">注册</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -48,9 +48,14 @@ export default {
       let data = this.form
       if (!this.exist) {
         if (data.password === data.repassword) {
-          api.register(this.form).then(res => {
+          api.register(data).then(res => {
+            console.log('res: ', res)
+            console.log('here0')
             if (res.data === 'success') {
-              this.$emit('registered', this.form)
+              console.log('here1')
+              this.$emit('registered', data)
+              this.$message('注册成功')
+              this.login(data)
             }
           })
         } else {
@@ -59,6 +64,24 @@ export default {
       } else {
         this.$message('用户名已存在')
       }
+    },
+    login (data) {
+      api.login(data).then(res => {
+        if (res.data.sign && res.data.sign === 'success') {
+          localStorage.token = res.data.token
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('userName', res.data.user ? res.data.user.name : null)
+          localStorage.setItem('userId', res.data.user ? res.data.user.id : null)
+          // this.$message('登录成功')
+          // this.$emit('logined')
+          this.$store.commit('setUser', res.data.user)
+          this.$store.commit('setToken', localStorage.token)
+        } else if (res.data === 'checkError') {
+          this.$message('用户名或密码错误')
+        } else if (res.data === 'noUser') {
+          this.$message('用户名不存在')
+        }
+      })
     },
     checkName (val) {
       let postData = {
@@ -75,6 +98,14 @@ export default {
           }
         })
       }
+    },
+    cancel () {
+      this.form = {
+        name: '',
+        password: '',
+        repassword: ''
+      }
+      this.$emit('cancel')
     }
   }
 }

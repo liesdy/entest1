@@ -4,11 +4,11 @@
       <el-input class="w-input" v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="密码">
-      <el-input class="w-input" v-model="form.password"></el-input>
+      <el-input type="password" class="w-input" v-model="form.password"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">登录</el-button>
-      <el-button>取消</el-button>
+      <el-button @click="cancel">取消</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -44,6 +44,13 @@ export default {
           this.$message('用户名不存在')
         }
       })
+    },
+    cancel () {
+      this.form = {
+        name: '',
+        password: ''
+      }
+      this.$emit('cancel')
     }
   }
 }

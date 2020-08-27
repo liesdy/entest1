@@ -2,6 +2,7 @@
   <div class='word'>
     <el-row class="filter-line">
       <el-autocomplete
+        size='small'
         v-model='filters.en.value'
         :fetch-suggestions='querySearchAsync'
         placeholder='英文'

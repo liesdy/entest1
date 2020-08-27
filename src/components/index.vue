@@ -80,6 +80,7 @@
           :is="componentName"
           @registered='registered'
           @logined='logined'
+          @cancel='showDialog = false'
           >
         </component>
       </el-dialog>

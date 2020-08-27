@@ -1,6 +1,16 @@
 import axios from 'axios'
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:8000',
+  // baseURL: 'http://127.0.0.2:8000',
+  // baseURL: 'localhost',
+  baseURL: 'http://124.70.214.237:8000',
+  withCredentials: false,
+  timeout: 5000, // request timeout
+  method: 'POST'
+})
+const service2 = axios.create({
+  // baseURL: 'http://127.0.0.2:8000',
+  // baseURL: 'localhost',
+  baseURL: 'http://124.70.214.237:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
   method: 'POST'
@@ -17,20 +27,33 @@ service.interceptors.request.use(function (config) {
   }
   return config
 })
-service.interceptors.response.use(
-  response => {
-    const res = response.data
-    // if (!res.login_ed) {
-    //   localStorage.token = null
-    //   localStorage.userName = null
-    //   localStorage.userId = null
-    // }
-    return res
-  })
+service.interceptors.response.use(response => {
+  const res = response.data
+  // if (!res.login_ed) {
+  //   localStorage.token = null
+  //   localStorage.userName = null
+  //   localStorage.userId = null
+  // }
+  return res
+})
+service2.interceptors.request.use(function (config) {
+  if (localStorage.token) {
+    config.headers['X-Authorization'] = localStorage.token ? localStorage.token : null
+    config.headers['X-Tkk'] = localStorage.userName ? localStorage.userName : null
+    config.headers['X-UD'] = localStorage.userId ? localStorage.userId : null
+  }
+  return config
+})
+service2.interceptors.response.use(response => {
+  const res = response.data
+  return res
+})
 function checkName () {
   return new Promise((resolve, reject) => {
     service({
-      url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
+      // url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
+      // url: 'http://localhost:8000/myEnglishNote/auth/login_check',
+      url: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check',
       method: 'post',
       data: null
     }).then(res => {
@@ -61,6 +84,18 @@ export default {
         method: 'post',
         data
       })
+    })
+    // return service({
+    //   url,
+    //   method: 'post',
+    //   data
+    // })
+  },
+  post2 (url, data) {
+    return service2({
+      url,
+      method: 'post',
+      data
     })
     // return service({
     //   url,

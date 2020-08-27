@@ -1,8 +1,8 @@
 <template>
   <div class='word'>
-    {{detailType}}
     <el-row class="filter-line">
       <el-autocomplete
+        size='small'
         v-model='filters.bookName.value'
         :fetch-suggestions='querySearchAsync'
         placeholder='英文'
