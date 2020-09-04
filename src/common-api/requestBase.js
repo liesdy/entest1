@@ -1,16 +1,20 @@
 import axios from 'axios'
 const service = axios.create({
-  // baseURL: 'http://127.0.0.2:8000',
+  // baseURL: 'http://127.0.0.1:8000',
   // baseURL: 'localhost',
+  // baseURL: 'localhost:8000',
   baseURL: 'http://124.70.214.237:8000',
+  // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
   method: 'POST'
 })
 const service2 = axios.create({
-  // baseURL: 'http://127.0.0.2:8000',
+  // baseURL: 'http://127.0.0.1:8000',
   // baseURL: 'localhost',
+  // baseURL: 'localhost:8000',
   baseURL: 'http://124.70.214.237:8000',
+  // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
   method: 'POST'
@@ -53,10 +57,12 @@ function checkName () {
     service({
       // url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
       // url: 'http://localhost:8000/myEnglishNote/auth/login_check',
+      // url: 'http://192.168.0.99:8000/myEnglishNote/auth/login_check',
       url: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check',
       method: 'post',
       data: null
     }).then(res => {
+      console.log('res: ', res)
       if (res.data.result === 'success') {
         resolve(res.data.result)
       } else {
