@@ -114,26 +114,26 @@ export default {
   },
   watch: {
     value (val, oldVal) {
-      console.log('oldVal: ', oldVal)
+      // console.log('oldVal: ', oldVal)
       this.content = val
     }
   },
   methods: {
     // 准备富文本编辑器
     onEditorReady (editor) {
-      console.log('editor: ', editor)
+      // console.log('editor: ', editor)
     },
     // 富文本编辑器 失去焦点事件
     onEditorBlur (editor) {
-      console.log('editor: ', editor)
+      // console.log('editor: ', editor)
     },
     // 富文本编辑器 获得焦点事件
     onEditorFocus (editor) {
-      console.log('editor: ', editor)
+      // console.log('editor: ', editor)
     },
     // 富文本编辑器 内容改变事件
     onEditorChange (editor) {
-      console.log('editor: ', editor)
+      // console.log('editor: ', editor)
       // this.emitValue()
       this.$emit('emitValue', editor.html)
     },

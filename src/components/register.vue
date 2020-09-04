@@ -49,10 +49,10 @@ export default {
       if (!this.exist) {
         if (data.password === data.repassword) {
           api.register(data).then(res => {
-            console.log('res: ', res)
-            console.log('here0')
+            // console.log('res: ', res)
+            // console.log('here0')
             if (res.data === 'success') {
-              console.log('here1')
+              // console.log('here1')
               this.$emit('registered', data)
               this.$message('注册成功')
               this.login(data)

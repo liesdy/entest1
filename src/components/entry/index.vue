@@ -1,5 +1,5 @@
 <template>
-  <div class='entry'>
+  <div class='entry' ref="entry">
     <el-row type='flex' justify="center" class='m20 p20'>
       <el-col :span='12'>
         <el-autocomplete
@@ -25,16 +25,16 @@
     <el-row class='mt10' type='flex' v-if='user'>
       <el-col :span='12'>
         <h3 class='tc-s chart-title'>站点统计</h3>
-        <div ref="chart1" style="width:100%;height:400px"></div>
+        <div v-if="totalHeight" ref="chart1" id="c1" class="chartbox" :style="{ width: '90%' , height: (0.4 * totalHeight) + 'px' }"></div>
       </el-col>
       <el-col :span='12'>
         <h3 class='tc-s chart-title'>我的关注</h3>
-        <div ref="chart2" style="width:100%;height:400px"></div>
+        <div v-if="totalHeight" ref="chart2" id="c2" class="chartbox" :style="{ width: '100%' , height: (0.4 * totalHeight) + 'px' }"></div>
       </el-col>
     </el-row>
     <el-row v-else>
       <h3 class='tc-s chart-title'>站点统计</h3>
-      <div ref="chart3" style="width:100%;height:500px"></div>
+      <div v-if="totalHeight" ref="chart3" id="c3" style="width:100%;height:500px"></div>
     </el-row>
 
     <el-dialog
@@ -71,7 +71,8 @@ import sentenceApi from '@/components/sentence/api.js'
 import articleApi from '@/components/article/api.js'
 import bookApi from '@/components/book/api.js'
 import wordRootApi from '@/components/wordRoot/api.js'
-import indexMixin from '../../mixins/index-mixin'
+import indexMixin from '@/mixins/index-mixin'
+import { Chart } from '@antv/g2'
 export default {
   name: 'HelloWorld',
   mixins: [indexMixin],
@@ -116,7 +117,9 @@ export default {
         api: wordApi
       },
       detailType: 'word',
-      state: null
+      state: null,
+      totalShowed: false, // 是否已经渲染total图表
+      totalHeight: null
     }
   },
   computed: {
@@ -194,80 +197,87 @@ export default {
       })
     },
     showTotalChart (totalData) {
-      const option = {
-        // title: {
-        //   text: '数据汇总'
-        // },
-        tooltip: {},
-        // legend: {
-        //   data: ['统计']
-        // },
-        xAxis: {
-          data: ['单词', '短语', '例句', '文章', '书本', '词根']
-        },
-        yAxis: {},
-        series: [{
-          name: '统计',
-          type: 'bar',
-          data: totalData
-        }]
+      if (this.totalShowed) {
+        return false
       }
-      this.initChart('chart1', option)
-      this.initChart('chart3', option)
+      this.totalShowed = true
+      // const option = {
+      //   tooltip: {},
+      //   xAxis: {
+      //     data: ['单词', '短语', '例句', '文章', '书本', '词根']
+      //   },
+      //   yAxis: {},
+      //   series: [{
+      //     name: '统计',
+      //     type: 'bar',
+      //     data: totalData
+      //   }]
+      // }
+      // this.initChart('chart1', option)
+      // this.initChart('chart3', option)
+      const data = [
+        { type: '单词', value: totalData[0] },
+        { type: '短语', value: totalData[1] },
+        { type: '例句', value: totalData[2] },
+        { type: '文章', value: totalData[3] },
+        { type: '书本', value: totalData[4] },
+        { type: '词根', value: totalData[5] }
+      ]
+      let container = this.user ? 'c1' : 'c3'
+      const chart = new Chart({
+        container: container, // 指定图表容器 ID
+        autoFit: true, // 指定图表宽度
+        height: '300px' // 指定图表高度
+      })
+      chart.data(data)
+      chart.interval().position('type*value')
+      chart.render()
     },
     showUserStarChart (userStarData) {
-      const option = {
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
-        },
-        series: {
-          name: '分类',
-          type: 'pie',
-          data: userStarData.filter(item => item.value > 0)
-        },
-        textStyle: {
-          color: 'rgba(100, 100, 100, 0.6)'
-        },
-        lineStyle: {
-          color: 'rgba(100, 100, 100, 0.3)'
-        }
-        // visualMap: {
-        //   // 不显示 visualMap 组件，只用于明暗度的映射
-        //   show: false,
-        //   // 映射的最小值为 80
-        //   min: 80,
-        //   // 映射的最大值为 600
-        //   max: 600,
-        //   inRange: {
-        //     // 明暗度的范围是 0 到 1
-        //     colorLightness: [0, 1]
-        //   }
-        // }
-      }
-      this.initChart('chart2', option)
+      // const option = {
+      //   tooltip: {
+      //     trigger: 'item',
+      //     formatter: '{a} <br/>{b}: {c} ({d}%)'
+      //   },
+      //   series: {
+      //     name: '分类',
+      //     type: 'pie',
+      //     data: userStarData.filter(item => item.value > 0)
+      //   },
+      //   textStyle: {
+      //     color: 'rgba(100, 100, 100, 0.6)'
+      //   },
+      //   lineStyle: {
+      //     color: 'rgba(100, 100, 100, 0.3)'
+      //   }
+      // }
+      // this.initChart('chart2', option)
     },
-    initChart (refsName, option) {
-      let chartNode = this.$refs[refsName]
-      if (chartNode) {
-        let thisChart = this.$echarts.init(chartNode)
-        thisChart.setOption(option)
-        window.addEventListener('resize', function () {
-          thisChart.resize()
+    // initChart (refsName, option) {
+    //   let chartNode = this.$refs[refsName]
+    //   if (chartNode) {
+    //     let thisChart = this.$echarts.init(chartNode)
+    //     thisChart.setOption(option)
+    //     window.addEventListener('resize', function () {
+    //       thisChart.resize()
+    //     })
+    //   }
+    // },
+    onResize () {
+      this.clientHeight = null
+      if (this.$refs.entry) {
+        this.$nextTick(() => {
+          this.totalHeight = this.$refs.entry.clientHeight
         })
       }
+      // this.totalHeight = window.document.body.clientHeight
+      console.log('totalHeight: ', this.totalHeight)
     }
-    // searchEn (en) {
-    //   let postData = {
-    //     en: en
-    //   }
-    //   api.searchWord(postData).then((result) => {
-    //     this.cn = result.data.data.cn
-    //   })
-    // }
   },
   mounted () {
     this.getTotal()
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
     if (this.user) {
       this.getUserStarData()
     }
@@ -291,12 +301,20 @@ li {
 a {
   color: #42b983;
 }
+.entry {
+  height: 100%;
+}
 .chart-title {
   position: relative;
-  top: 20px;
+  /* top: 20px; */
   font-weight: normal;
+  margin-bottom: 20px;
   font-size: 20px;
   color: #777;
   text-shadow:0px 3px 3px #ddd;
+}
+.chartbox {
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

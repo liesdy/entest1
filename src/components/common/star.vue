@@ -115,7 +115,7 @@ export default {
     }
   },
   mounted () {
-    console.log('this.baseData: ', this.baseData)
+    // console.log('this.baseData: ', this.baseData)
     if (this.baseData.starData) {
       this.hardLevel = this.baseData.starData.hard_level
       this.stared = true

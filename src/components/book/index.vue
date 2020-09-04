@@ -92,7 +92,7 @@ export default {
         this.api.search(postData).then((result) => {
           if (result.data && result.data.length) {
             let resList = result.data.map((item) => {
-              console.log('item: ', item)
+              // console.log('item: ', item)
               item.value = item.book_name
               return item
             })

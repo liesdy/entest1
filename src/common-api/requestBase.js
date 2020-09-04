@@ -21,7 +21,7 @@ const service2 = axios.create({
 })
 service.interceptors.request.use(function (config) {
   if (localStorage.token) {
-    console.log('localStorage.token: ', localStorage.token)
+    // console.log('localStorage.token: ', localStorage.token)
     // let each request carry token
     // ['X-Token'] is a custom headers key
     // please modify it according to the actual situation
@@ -62,7 +62,7 @@ function checkName () {
       method: 'post',
       data: null
     }).then(res => {
-      console.log('res: ', res)
+      // console.log('res: ', res)
       if (res.data.result === 'success') {
         resolve(res.data.result)
       } else {

@@ -134,7 +134,7 @@ export default {
       localStorage.removeItem('userName')
       localStorage.removeItem('userId')
       this.$store.commit('logOut')
-      console.log('localStorage: ', localStorage)
+      // console.log('localStorage: ', localStorage)
     },
     logined () {
       this.showDialog = false
@@ -148,7 +148,7 @@ export default {
         id: localStorage.userId
       }
       api.getUser(postData).then(res => {
-        console.log('res.data: ', res.data)
+        // console.log('res.data: ', res.data)
         this.$store.commit('setUser', res.data)
       })
     }
@@ -161,12 +161,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /* .back-ground {
-    background-color: #efefef;
+  .back-ground {
+    /* background-color: #efefef; */
     height: 100%
-  } */
+  }
   .frame {
     width: 1024px;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -201,6 +202,7 @@ export default {
     padding: 25px 20px 0;
     background-color: #fff;
     border-radius: 15px;
+    height: 100%;
   }
   .menu-line {
     position: relative;

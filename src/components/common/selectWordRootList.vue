@@ -152,7 +152,7 @@ export default {
       api.add(postData).then(res => {
         let newData = res.data
         this.createdList.push(newData)
-        console.log('res: ', res)
+        // console.log('res: ', res)
       })
     }
   },

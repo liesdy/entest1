@@ -55,14 +55,14 @@ export default {
       this.$emit('selectionChange', val)
     },
     handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-      console.log('this.page: ', this.page)
+      // console.log(`每页 ${val} 条`)
+      // console.log('this.page: ', this.page)
       this.page.size = val
       this.$emit('pageChange', this.page)
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-      console.log('this.page: ', this.page)
+      // console.log(`当前页: ${val}`)
+      // console.log('this.page: ', this.page)
       this.page.currentPage = val
       this.$emit('pageChange', this.page)
     }
