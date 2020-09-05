@@ -36,7 +36,8 @@
       </template>
     </el-form-item>
     <el-dialog
-      :modal='false'
+      :modal='true'
+      append-to-body
       title="Select Sentence"
       :visible.sync="showDialog"
       width="60%">

@@ -8,13 +8,13 @@
         placeholder='英文'
         @select='handleFilterChange'
       ></el-autocomplete>
-      <el-select size='small' v-model="filters.level.value" placeholder="单词等级" @change="handleFilterChange" clearable>
+      <!-- <el-select size='small' v-model="filters.level.value" placeholder="单词等级" @change="handleFilterChange" clearable>
         <el-option label="1" :value="1" />
         <el-option label="2" :value="2" />
         <el-option label="3" :value="3" />
         <el-option label="4" :value="4" />
       </el-select>
-      <el-input size='small' v-model='filters.phrase.value' class='w-input' placeholder="短语"></el-input>
+      <el-input size='small' v-model='filters.phrase.value' class='w-input' placeholder="短语"></el-input> -->
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
       <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'word')" round>新增</el-button>
     </el-row>

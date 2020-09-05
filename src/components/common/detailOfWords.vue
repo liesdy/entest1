@@ -139,7 +139,8 @@
     </template>
 
     <el-dialog
-      :modal='false'
+      :modal='true'
+      append-to-body
       title="detail base history"
       :visible.sync="showHistoryDialog"
       width="60%">

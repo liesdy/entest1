@@ -71,7 +71,8 @@
         <router-view></router-view>
       </el-row>
       <el-dialog
-        :modal='false'
+        :modal='true'
+        append-to-body
         :title="titleName"
         :visible.sync="showDialog"
         width="430px">
@@ -83,6 +84,31 @@
           @cancel='showDialog = false'
           >
         </component>
+      </el-dialog>
+
+      <el-dialog
+       :visible.sync="showHello"
+       width="600px"
+       append-to-body>
+        <div class='hello'>
+          <h3>Hello</h3>
+          <p>这是一个为了方便进行英语学习笔记的小型试做项目</p>
+          <p>核心主旨在于联系</p>
+          <p>比如遇到了一个新的英语生词</p>
+          <p>首先可以在此查询，看是否已被录入</p>
+          <p>如果是已经录入的单词，则可以直接查看，也可以进行修改</p>
+          <p>如果还未录入，可以自行添加</p>
+          <p>在详情中也可以将这个单词与其他的短语、例句、书本等内容进行关联</p>
+          <br>
+          <p>在其他板块，比如短语、例句等板块，也都有类似功能</p>
+          <p>甚至还能查看历史修改记录</p>
+          <br>
+          <p>未来，也可能会陆续再添加其他功能....大概~~ ：)</p>
+          <p> ————liesdy</p>
+          <br>
+          <br>
+          <p class="light">ps: 这个项目并没有经过严格测试因此你可能会遇到各种奇怪bug甚至数据丢失,欢迎尝试并体验2333</p>
+        </div>
       </el-dialog>
     </div>
   </div>
@@ -97,7 +123,8 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       showDialog: false,
       titleName: null,
-      componentName: null
+      componentName: null,
+      showHello: false
     }
   },
   components: {
@@ -127,6 +154,7 @@ export default {
     },
     registered (val) {
       this.showDialog = false
+      this.showHello = true
       // this.login(val)
     },
     logOut () {
@@ -219,5 +247,22 @@ export default {
     text-align: left;
     letter-spacing: 2px;
     font:normal normal 14px/20px arial,sans-serif;
+  }
+  .hello {
+    text-align: center;
+    line-height: 30px;
+    color: #999999;
+  }
+  .hello .tr-s {
+    text-align: right;
+  }
+  .hello h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #0099ff;
+  }
+  .hello .light{
+    color: #ddd;
+    font-size: 12px;
   }
 </style>

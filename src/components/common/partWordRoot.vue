@@ -35,7 +35,8 @@
       </template>
     </el-form-item>
     <el-dialog
-      :modal='false'
+      :modal='true'
+      append-to-body
       title="Select WordRoot"
       :visible.sync="showDialog"
       width="60%">

@@ -3,7 +3,8 @@
     <i v-if='baseData.starData' :class="[starOn, levelColor(baseData), { 'in-detail': inDetail }]" @click="showStarDialog(baseData)"></i>
     <i v-else :class="['el-icon-star-off', { 'in-detail': inDetail }]" @click="showStarDialog(baseData)"></i>
     <el-dialog
-      :modal='false'
+      :modal='true'
+      append-to-body
       title=""
       :visible.sync="showDialog"
       width="400px">

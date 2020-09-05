@@ -193,6 +193,7 @@ export default {
       let vm = this
       api.getUserStarData().then(res => {
         let userStarData = res.data.totalNumberList
+        console.log('userStarData: ', userStarData)
         vm.showUserStarChart(userStarData)
       })
     },
@@ -230,10 +231,34 @@ export default {
         height: '300px' // 指定图表高度
       })
       chart.data(data)
-      chart.interval().position('type*value')
+      chart.legend(false)
+      chart.interval().position('type*value').color('type')
       chart.render()
     },
     showUserStarChart (userStarData) {
+      const chart = new Chart({
+        container: 'c2',
+        // theme: 'dark',
+        // theme: {
+        //   defaultColor: 'red'
+        // },
+        // width: this.height * 1.4,
+        autoFit: true,
+        height: this.height * 0.7
+      })
+      chart.data(userStarData)
+      chart
+        .interval()
+        .adjust('stack')
+        .position('value')
+        .color('name')
+      chart.coordinate('polar').transpose()
+      chart.legend({
+        position: 'right',
+        itemWidth: 80,
+        maxWidth: 80
+      })
+      chart.render()
       // const option = {
       //   tooltip: {
       //     trigger: 'item',
@@ -253,16 +278,16 @@ export default {
       // }
       // this.initChart('chart2', option)
     },
-    // initChart (refsName, option) {
-    //   let chartNode = this.$refs[refsName]
-    //   if (chartNode) {
-    //     let thisChart = this.$echarts.init(chartNode)
-    //     thisChart.setOption(option)
-    //     window.addEventListener('resize', function () {
-    //       thisChart.resize()
-    //     })
-    //   }
-    // },
+    initChart (refsName, option) {
+      // let chartNode = this.$refs[refsName]
+      // if (chartNode) {
+      //   let thisChart = this.$echarts.init(chartNode)
+      //   thisChart.setOption(option)
+      //   window.addEventListener('resize', function () {
+      //     thisChart.resize()
+      //   })
+      // }
+    },
     onResize () {
       this.clientHeight = null
       if (this.$refs.entry) {
@@ -271,7 +296,6 @@ export default {
         })
       }
       // this.totalHeight = window.document.body.clientHeight
-      console.log('totalHeight: ', this.totalHeight)
     }
   },
   mounted () {
