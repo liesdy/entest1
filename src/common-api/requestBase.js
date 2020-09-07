@@ -1,9 +1,20 @@
 import axios from 'axios'
+let currentEnv = 'dev'
+// let currentEnv = 'prod'
+let urlList = {
+  dev: 'http://127.0.0.1:8000',
+  prod: 'http://124.70.214.237:8000'
+}
+let checkNameUrl = {
+  dev: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
+  prod: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check'
+}
 const service = axios.create({
   // baseURL: 'http://127.0.0.1:8000',
+  baseURL: urlList[currentEnv],
   // baseURL: 'localhost',
   // baseURL: 'localhost:8000',
-  baseURL: 'http://124.70.214.237:8000',
+  // baseURL: 'http://124.70.214.237:8000',
   // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
@@ -11,9 +22,10 @@ const service = axios.create({
 })
 const service2 = axios.create({
   // baseURL: 'http://127.0.0.1:8000',
+  baseURL: urlList[currentEnv],
   // baseURL: 'localhost',
   // baseURL: 'localhost:8000',
-  baseURL: 'http://124.70.214.237:8000',
+  // baseURL: 'http://124.70.214.237:8000',
   // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
@@ -56,9 +68,10 @@ function checkName () {
   return new Promise((resolve, reject) => {
     service({
       // url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
+      url: checkNameUrl[currentEnv],
       // url: 'http://localhost:8000/myEnglishNote/auth/login_check',
       // url: 'http://192.168.0.99:8000/myEnglishNote/auth/login_check',
-      url: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check',
+      // url: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check',
       method: 'post',
       data: null
     }).then(res => {
@@ -81,7 +94,7 @@ export default {
         data
       })
     }).catch(res => {
-      console.log('localStorage: ', localStorage)
+      // console.log('localStorage: ', localStorage)
       localStorage.removeItem('token')
       localStorage.removeItem('userName')
       localStorage.removeItem('userId')

@@ -292,12 +292,14 @@ export default {
         vm.isView = true
       })
     },
+    // 添加一条中文释义
     addcn () {
       this.rootData2.cn.push({
         pos: null,
         cn: null
       })
     },
+    // 删除一条中文释义
     deletecn (index) {
       if (this.rootData2.cn && this.rootData2.cn.length > 1) {
         this.rootData2.cn.splice(index, 1)
@@ -305,6 +307,7 @@ export default {
         this.$message('不...不能再删了...')
       }
     },
+    // 根据index获取对应的词性信息
     toName (index) {
       let posList = [
         'n.',

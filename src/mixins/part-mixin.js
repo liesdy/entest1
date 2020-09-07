@@ -29,25 +29,30 @@ export default {
   computed: {
   },
   methods: {
+    // 通过点击目标的 id 和 类型 跳转至目标对应的详情
     emitLeap (id, targetDetailType) {
       this.$emit('emitLeap', [
         id,
         targetDetailType
       ])
     },
+    // 编辑状态下删除之前已有的标签列表中的标签
     handleEditingListClose (item) {
       this.editingList.splice(this.editingList.indexOf(item), 1)
       this.deleteList.push(item)
     },
+    // 编辑状态下删除此次添加的标签列表中的标签
     handleAddedListClose (item) {
       this.addList.splice(this.addList.indexOf(item), 1)
     },
+    // 通过选择弹窗的添加按钮确认添加新选择的关联对象
     confirmAdd (val) {
       this.addList = val
       this.$nextTick(() => {
         this.showDialog = false
       })
     },
+    // 关闭关联弹窗，取消关联
     cancelAdd () {
       this.showDialog = false
     },
@@ -67,6 +72,7 @@ export default {
     //     this.deleteList = []
     //   })
     // },
+    // 提交详情页中每个部分的修改
     submit () {
       let vm = this
       let postData = {
@@ -83,12 +89,14 @@ export default {
         this.deleteList = []
       })
     },
+    // 取消修改
     cancel () {
       this.addList = []
       this.editingList = []
       this.deleteList = []
       this.isEdit = false
     },
+    // 查看历史
     showHistory () {
       let postData = {
         id: this.rootData.id,
