@@ -51,15 +51,18 @@ export default {
     // }
   },
   methods: {
+    // 监听表格中选中行的变更
     handleSelectionChange (val) {
       this.$emit('selectionChange', val)
     },
+    // 监听分页每页数量变化
     handleSizeChange (val) {
       // console.log(`每页 ${val} 条`)
       // console.log('this.page: ', this.page)
       this.page.size = val
       this.$emit('pageChange', this.page)
     },
+    // 监听当前页变化
     handleCurrentChange (val) {
       // console.log(`当前页: ${val}`)
       // console.log('this.page: ', this.page)

@@ -14,6 +14,9 @@
 </template>
 
 <script>
+/**
+ * 详情页每个部分的框架，包括左边的显示和右边的 提交 取消 编辑 查看历史 这几个按钮
+ */
 export default {
   name: 'frameEdit',
   props: {
