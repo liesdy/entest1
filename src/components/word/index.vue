@@ -16,7 +16,7 @@
       </el-select>
       <el-input size='small' v-model='filters.phrase.value' class='w-input' placeholder="短语"></el-input> -->
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'word')" round>新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'word')" v-if="user" round>新增</el-button>
     </el-row>
     <!-- <el-row class='list-box'>
       <el-table
@@ -54,6 +54,7 @@
       </el-table-column>
       <el-table-column
         prop="stared"
+        v-if="user"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->

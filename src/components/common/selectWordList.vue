@@ -40,6 +40,10 @@
           prop="cn"
           label="中文"
           min-width="180">
+          <template slot-scope="scope">
+          <!-- 收藏 -->
+          <span v-for="item in scope.row.cn" :key="item.id">{{ item.cn }} </span>
+        </template>
         </el-table-column>
       </cm-table>
       <el-row class="mt10">

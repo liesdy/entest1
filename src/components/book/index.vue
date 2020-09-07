@@ -9,7 +9,7 @@
         @select='handleFilterChange'
       ></el-autocomplete>
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'book')" round>新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'book')" v-if="user" round>新增</el-button>
     </el-row>
     <!-- <el-row class='list-box'>
       <el-table
@@ -26,6 +26,7 @@
       </el-table-column>
       <el-table-column
         prop="stared"
+        v-if="user"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->

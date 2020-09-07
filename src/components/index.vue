@@ -67,7 +67,7 @@
           </el-row>
         </el-col>
       </el-row>
-      <el-row class='main-box'>
+      <el-row class='main-box' v-if="showTable">
         <router-view></router-view>
       </el-row>
       <el-dialog
@@ -124,7 +124,8 @@ export default {
       showDialog: false,
       titleName: null,
       componentName: null,
-      showHello: false
+      showHello: false, // 注册完成时显示弹窗
+      showTable: true // 显示表格
     }
   },
   components: {
@@ -165,7 +166,12 @@ export default {
       // console.log('localStorage: ', localStorage)
     },
     logined () {
+      // 登录后重新查询表格数据（刷新收藏信息）
+      this.showTable = false
       this.showDialog = false
+      this.$nextTick(() => {
+        this.showTable = true
+      })
     }
   },
   mounted () {

@@ -44,6 +44,13 @@ export default {
     },
     componentName () {
       return this.componentNameOfType[this.detailType]
+    },
+    user () {
+      if (this.$store.state.user) {
+        return this.$store.state.user
+      } else {
+        return null
+      }
     }
   },
   methods: {
