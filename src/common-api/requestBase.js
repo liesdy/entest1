@@ -94,7 +94,7 @@ export default {
         data
       })
     }).catch(res => {
-      console.log('localStorage: ', localStorage)
+      // console.log('localStorage: ', localStorage)
       localStorage.removeItem('token')
       localStorage.removeItem('userName')
       localStorage.removeItem('userId')
