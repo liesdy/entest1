@@ -72,7 +72,7 @@ export default {
     //     this.deleteList = []
     //   })
     // },
-    // 提交详情页中每个部分的修改
+    // 提交详情页中每个关联部分的修改
     submit () {
       let vm = this
       let postData = {
