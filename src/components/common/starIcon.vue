@@ -22,6 +22,7 @@
 
 <script>
 // import api from '@/common-api/starBase.js'
+import { checkToken } from '@/utils/auth'
 export default {
   name: 'starIcon',
   props: {
@@ -56,9 +57,13 @@ export default {
   },
   methods: {
     showStarDialog (data) {
-      this.choicedRow = data
-      this.detailType = 'star'
-      this.showDialog = true
+      if (checkToken('登录后可收藏')) {
+        this.choicedRow = data
+        this.detailType = 'star'
+        this.showDialog = true
+      } else {
+        return false
+      }
     },
     levelColor (data) {
       switch (data.starData.hard_level) {

@@ -9,9 +9,9 @@ export default {
     return request.post2(preurl + '/checkName', data)
   },
   login (data) {
-    return request.post(preurl + '/login', data)
+    return request.post2(preurl + '/login', data)
   },
   getUser (data) {
-    return request.post(preurl + '/getUser', data)
+    return request.post2(preurl + '/getUser', data)
   }
 }

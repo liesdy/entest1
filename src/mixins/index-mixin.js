@@ -1,3 +1,4 @@
+import { checkToken } from '@/utils/auth'
 export default {
   name: 'index-mixin',
   components: {},
@@ -86,8 +87,12 @@ export default {
       this.dialogWidth = '900px'
       this.detailType = detailType
       if (add) {
-        this.isAdd = true
-        this.choicedId = null
+        if (checkToken('登录后可添加新的内容')) {
+          this.isAdd = true
+          this.choicedId = null
+        } else {
+          return false
+        }
       } else {
         this.isAdd = false
         this.choicedId = row.id

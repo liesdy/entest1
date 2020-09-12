@@ -13,7 +13,7 @@
               <template v-if='user'>
                 <el-dropdown trigger="click">
                   <el-button type="text">
-                    {{ user.name }}
+                    {{user.name}}
                     <!-- <i class="el-icon-arrow-down el-icon--right"></i> -->
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
@@ -28,42 +28,15 @@
             </el-col>
           </el-row>
           <el-row class="menu-line">
-            <router-link to="/word">
-              <!-- <el-col :offset="6" :span='3' > -->
-              <el-col :span='4' >
-                <el-button type="text"><span>单词</span> <br> <span class='s-menu'>word</span></el-button>
-              </el-col>
-            </router-link>
-            <router-link to="/phrase">
-              <el-col :span='4'>
-                <el-button type="text"><span>短语</span> <br> <span class='s-menu'>phrase</span></el-button>
-              </el-col>
-            </router-link>
-            <router-link to="/sentence">
-              <el-col :span='4'>
-                <el-button type="text"><span>例句</span> <br> <span class='s-menu'>sentence</span></el-button>
-              </el-col>
-            </router-link>
-            <router-link to="/article">
-              <el-col :span='4'>
-                <el-button type="text"><span>课文</span> <br> <span class='s-menu'>article</span></el-button>
-              </el-col>
-            </router-link>
-            <router-link to="/wordroot">
-              <el-col :span='4'>
-                <el-button type="text"><span>词根</span> <br> <span class='s-menu'>wordroot</span></el-button>
-              </el-col>
-            </router-link>
-            <router-link to="/book">
-              <el-col :span='4'>
-                <el-button type="text"><span>书本</span> <br> <span class='s-menu'>book</span></el-button>
-              </el-col>
-            </router-link>
-            <!-- <router-link to="/phrase">
-              <el-col :span='3'>
-                <el-button type="text">查询</el-button>
-              </el-col>
-            </router-link> -->
+            <el-col
+              v-for="(item, index) in menuList"
+              :key='index'
+              :span='4'
+              @click.native="route(item.en)">
+              <div :class='{ menu: true, "is-active": active === item.en }' type="text" >
+                <span>{{item.cn}}</span> <br> <span class='s-menu'>{{item.en}}</span>
+              </div>
+            </el-col>
           </el-row>
         </el-col>
       </el-row>
@@ -125,7 +98,34 @@ export default {
       titleName: null,
       componentName: null,
       showHello: false, // 注册完成时显示弹窗
-      showTable: true // 显示表格
+      showTable: true, // 显示表格
+      active: null,
+      menuList: [
+        {
+          cn: '单词',
+          en: 'word'
+        },
+        {
+          cn: '短语',
+          en: 'phrase'
+        },
+        {
+          cn: '例句',
+          en: 'sentence'
+        },
+        {
+          cn: '课文',
+          en: 'article'
+        },
+        {
+          cn: '词根',
+          en: 'wordroot'
+        },
+        {
+          cn: '书本',
+          en: 'book'
+        }
+      ]
     }
   },
   components: {
@@ -142,6 +142,10 @@ export default {
     }
   },
   methods: {
+    route (to) {
+      this.active = to
+      this.$router.push('/' + to)
+    },
     openDialog (val) {
       if (val === 'Login') {
         this.titleName = '登录'
@@ -240,8 +244,12 @@ export default {
   }
   .menu-line {
     position: relative;
-    top: 5px;
+    top: 10px;
     left: 72px;
+  }
+  .menu {
+    color: #999;
+    cursor: pointer
   }
   .menu-line >>> .el-button--text {
     color: #666;
@@ -253,6 +261,12 @@ export default {
     text-align: left;
     letter-spacing: 2px;
     font:normal normal 14px/20px arial,sans-serif;
+  }
+  .is-active {
+    font-weight: bold;
+  }
+  .menu-line .is-active {
+    color: #627fff;
   }
   .hello {
     text-align: center;

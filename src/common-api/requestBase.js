@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Message } from 'element-ui'
 let currentEnv = 'dev'
 // let currentEnv = 'prod'
 let urlList = {
@@ -98,11 +99,15 @@ export default {
       localStorage.removeItem('token')
       localStorage.removeItem('userName')
       localStorage.removeItem('userId')
-      return service({
-        url,
-        method: 'post',
-        data
+      Message({
+        message: '需要登录后再进行操作',
+        type: 'warn'
       })
+      // return service({
+      //   url,
+      //   method: 'post',
+      //   data
+      // })
     })
     // return service({
     //   url,

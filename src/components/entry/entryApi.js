@@ -3,18 +3,18 @@ const preurl = '/myEnglishNote'
 
 export default {
   getTotal () {
-    return request.post(preurl + '/total/getTotal')
+    return request.post2(preurl + '/total/getTotal')
   },
   getUserStarData () {
     return request.post(preurl + '/total/getUserStarData')
   }
   // searchWord (word) {
-  //   return request.post(preurl + '/word/search', word)
+  //   return request.post2(preurl + '/word/search', word)
   // },
   // getWord (word) {
-  //   return request.post(preurl + '/word/get', word)
+  //   return request.post2(preurl + '/word/get', word)
   // },
   // wordsList (word) {
-  //   return request.post(preurl + '/wordsList', word)
+  //   return request.post2(preurl + '/wordsList', word)
   // }
 }

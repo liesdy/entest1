@@ -39,7 +39,7 @@ export default {
     confirmAdd (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.canAdd && (this.rootData2.en || this.rootData2.title)) {
+          if (this.canAdd && (this.rootData2.en || this.rootData2.title || this.rootData2.book_name)) {
             this.api.add(this.rootData2).then(res => {
               if (res.data && res.data.id) {
                 this.detailId = res.data.id

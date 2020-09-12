@@ -3,19 +3,19 @@ const preurl = '/myEnglishNote/sentence'
 
 export default {
   search (data) {
-    return request.post(preurl + '/search', data)
+    return request.post2(preurl + '/search', data)
   },
   list (data) {
-    return request.post(preurl + '/list', data)
+    return request.post2(preurl + '/list', data)
   },
   get (data) {
-    return request.post(preurl + '/get', data)
+    return request.post2(preurl + '/get', data)
   },
   add (data) {
     return request.post(preurl + '/add', data)
   },
   checkExist (data) {
-    return request.post(preurl + '/checkExist', data)
+    return request.post2(preurl + '/checkExist', data)
   },
   update (data) {
     return request.post(preurl + '/update', data)
@@ -24,9 +24,9 @@ export default {
     return request.post(preurl + '/updateIncludeDetail', data)
   },
   relateHistory (data) {
-    return request.post(preurl + '/relateHistory', data)
+    return request.post2(preurl + '/relateHistory', data)
   },
   getHistory (data) {
-    return request.post(preurl + '/getHistory', data)
+    return request.post2(preurl + '/getHistory', data)
   }
 }

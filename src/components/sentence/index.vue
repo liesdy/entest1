@@ -9,7 +9,7 @@
         @select='handleFilterChange'
       ></el-autocomplete>
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'sentence')" v-if="user" round>新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'sentence')" round>新增</el-button>
     </el-row>
     <cm-table
       :pageDefaultSize='10'
@@ -36,13 +36,19 @@
           </p>
         </template>
       </el-table-column>
-      <!-- <el-table-column
-        prop="level"
-        label="Level">
-      </el-table-column> -->
+      <el-table-column
+        prop="viewCount"
+        label="浏览人数"
+        width="140">
+      </el-table-column>
+      <el-table-column
+        v-if="user"
+        prop="myViewCount"
+        label="我的浏览"
+        width="140">
+      </el-table-column>
       <el-table-column
         prop="stared"
-        v-if="user"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->
@@ -50,6 +56,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        fixed="right"
         label="MORE">
         <template slot-scope="scope">
           <el-button @click="openDialog(false, 'sentence', scope.row)" type="primary" size="small" round>详情</el-button>

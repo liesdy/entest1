@@ -9,7 +9,7 @@
         @select='handleFilterChange'
       ></el-autocomplete>
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round @click='handleFilterChange'>筛选</el-button>
-      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'article')" v-if="user" round>新增</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="openDialog(true, 'article')" round>新增</el-button>
     </el-row>
     <cm-table
       :baseData='baseData'
@@ -31,7 +31,6 @@
       </el-table-column>
       <el-table-column
         prop="stared"
-        v-if="user"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->
@@ -39,9 +38,10 @@
         </template>
       </el-table-column>
       <el-table-column
+        fixed="right"
         label="MORE">
         <template slot-scope="scope">
-          <el-button @click="openDialog(false, 'article', scope.row)" type="text" size="small" >MORE</el-button>
+          <el-button @click="openDialog(false, 'article', scope.row)" type="primary" size="small" round>详情</el-button>
         </template>
       </el-table-column>
     </cm-table>

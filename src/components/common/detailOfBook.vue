@@ -16,7 +16,7 @@
           </div>
         </template>
         <template v-else>
-          <el-form-item label="书名:">
+          <el-form-item label="书名:" prop="book_name">
             <el-input v-model='rootData2.book_name' @input="checkExist" class="w-input"></el-input>
             <template v-if='rootData2.book_name && isAdd'>
               <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i>
@@ -92,6 +92,12 @@ export default {
         book_name: null,
         contain: null,
         remark: null
+      },
+      rules: {
+        book_name: [
+          { required: true, message: '请输入书名', trigger: 'blur' }
+          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ]
       }
     }
   },
