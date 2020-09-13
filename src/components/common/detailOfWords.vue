@@ -136,6 +136,8 @@
         @emitLeap='emitLeap'
         @updated='updated'>
       </partArticle>
+      <ViewTimes :rootData="rootData"></ViewTimes>
+      <Comment v-if='rootData && rootData.id' targetType='word' :targetId='rootData.id'></Comment>
     </template>
 
     <el-dialog
@@ -147,7 +149,7 @@
       <el-timeline>
         <el-timeline-item :timestamp="formatTime(new Date(item.time))" placement="top" v-for="item in historyList" :key="item.id">
           <el-card hadow="always">
-            <p class="mb10 pb10">{{item.author.name}} <span v-if='item.add'>创建了{{item.en}}的基础信息</span><span v-else>将 {{item.en}} 的基础信息修改为</span>:</p>
+            <p class="mb10 pb10" v-if='item.author'>{{item.author.name}} <span v-if='item.add'>创建了{{item.en}}的基础信息</span><span v-else>将 {{item.en}} 的基础信息修改为</span>:</p>
             <el-form class="just-show">
               <el-form-item label="英文:">
                 <span>{{item.en}}</span>

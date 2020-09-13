@@ -74,6 +74,8 @@
         @emitLeap='emitLeap'
         @updated='updated'>
       </partArticle>
+      <ViewTimes :rootData="rootData"></ViewTimes>
+      <Comment v-if='rootData && rootData.id' targetType='sentence' :targetId='rootData.id'></Comment>
     </template>
 
     <el-dialog

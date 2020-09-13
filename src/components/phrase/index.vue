@@ -39,16 +39,17 @@
       <el-table-column
         prop="viewCount"
         label="浏览人数"
-        width="140">
+        width="80">
       </el-table-column>
       <el-table-column
         v-if="user"
         prop="myViewCount"
         label="我的浏览"
-        width="140">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="stared"
+        width="80"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->

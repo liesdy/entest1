@@ -59,6 +59,7 @@
         @emitLeap='emitLeap'
         @updated='updated'>
       </partWord>
+      <Comment v-if='rootData && rootData.id' targetType='wordRoot' :targetId='rootData.id'></Comment>
     </template>
 
     <el-dialog

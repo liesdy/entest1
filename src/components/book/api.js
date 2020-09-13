@@ -8,9 +8,9 @@ export default {
   list (word) {
     return request.post2(preurl + '/list', word)
   },
-  // listsimple (word) {
-  //   return request.post2(preurl + '/listsimple', word)
-  // },
+  listsimple (word) {
+    return request.post2(preurl + '/listsimple', word)
+  },
   get (data) {
     return request.post2(preurl + '/get', data)
   },

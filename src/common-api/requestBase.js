@@ -1,7 +1,12 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+
+/**
+ * 选择当前的运行环境
+ */
 let currentEnv = 'dev'
 // let currentEnv = 'prod'
+
 let urlList = {
   dev: 'http://127.0.0.1:8000',
   prod: 'http://124.70.214.237:8000'

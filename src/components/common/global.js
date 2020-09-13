@@ -26,6 +26,8 @@ import StarIcon from './starIcon.vue'
 import CmTable from './cmTable.vue'
 import HistoryList from './historyList.vue'
 import Editor from './editor.vue'
+import ViewTimes from './viewTimes.vue'
+import Comment from './comment.vue'
 
 // Vue.component(DetailDialog.name, DetailDialog)
 Vue.component(PartArticle.name, PartArticle)
@@ -50,3 +52,5 @@ Vue.component(StarIcon.name, StarIcon)
 Vue.component(CmTable.name, CmTable)
 Vue.component(HistoryList.name, HistoryList)
 Vue.component(Editor.name, Editor)
+Vue.component(ViewTimes.name, ViewTimes)
+Vue.component(Comment.name, Comment)

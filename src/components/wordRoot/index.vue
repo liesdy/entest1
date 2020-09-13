@@ -31,6 +31,7 @@
       </el-table-column>
       <el-table-column
         prop="stared"
+        width="80"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->

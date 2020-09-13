@@ -40,6 +40,9 @@
         <el-button class='fade' v-if='isView' @click="showHistory" type="warning" icon="el-icon-time" circle size='small'></el-button>
       </el-col>
     </el-row>
+    <el-row v-if='!isAdd'>
+      <Comment v-if='rootData && rootData.id' targetType='book' :targetId='rootData.id'></Comment>
+    </el-row>
     <!-- 确认添加 -->
     <el-row type="flex" justify="center" v-if='isAdd'>
       <el-button @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>

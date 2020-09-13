@@ -25,11 +25,11 @@
     <el-row class='mt10' type='flex' v-if='user'>
       <el-col :span='12'>
         <h3 class='tc-s chart-title'>站点统计</h3>
-        <div v-if="totalHeight" ref="chart1" id="c1" class="chartbox" :style="{ width: '90%' , height: (0.4 * totalHeight) + 'px' }"></div>
+        <div v-if="totalHeight" ref="chart1" id="c1" class="chartbox" :style="{ height: (0.4 * totalHeight) + 'px' }"></div>
       </el-col>
       <el-col :span='12'>
         <h3 class='tc-s chart-title'>我的关注</h3>
-        <div v-if="totalHeight" ref="chart2" id="c2" class="chartbox" :style="{ width: '100%' , height: (0.4 * totalHeight) + 'px' }"></div>
+        <div v-if="totalHeight" ref="chart2" id="c2" class="chartbox" :style="{ height: (0.4 * totalHeight) + 'px' }"></div>
       </el-col>
     </el-row>
     <el-row v-else>
@@ -340,5 +340,7 @@ a {
 .chartbox {
   margin-left: auto;
   margin-right: auto;
+  width: 75%;
+  max-height: 280px
 }
 </style>

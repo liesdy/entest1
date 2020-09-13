@@ -115,6 +115,7 @@
         @emitLeap='emitLeap'
         @updated='updated'>
       </partSentence>
+      <Comment v-if='rootData && rootData.id' targetType='article' :targetId='rootData.id'></Comment>
     </template>
 
     <el-dialog

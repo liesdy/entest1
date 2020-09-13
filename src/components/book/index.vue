@@ -22,10 +22,11 @@
       <el-table-column
         prop="book_name"
         label="英文"
-        min-width="140">
+        min-width="80">
       </el-table-column>
       <el-table-column
         prop="stared"
+        width="80"
         label="收藏">
         <template slot-scope="scope">
           <!-- 收藏 -->
