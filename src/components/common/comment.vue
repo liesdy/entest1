@@ -110,7 +110,8 @@ export default {
     color: #cccccc;
   }
   .comment-item {
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   .comment-item + .comment-item {
     /* border-top: 1px solid #efefef;
@@ -119,6 +120,9 @@ export default {
   .title-line {
     font-size: 12px;
     color: #cccccc;
+    line-height: 30px;
+    height: 30px;
+    padding-left: 5px;
   }
   .title-line .name {
     color: #0077ff;

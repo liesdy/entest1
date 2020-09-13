@@ -2,10 +2,8 @@
   <div class="back-ground">
     <div class="frame">
       <el-row class='title-line' type='flex'>
-        <el-col :span='6' class='logo'>
-          <router-link to="/">
-            <h1>En<span>try</span></h1>
-          </router-link>
+        <el-col :span='6' class='logo' @click.native="route('')">
+          <h1>En<span>try</span></h1>
         </el-col>
         <el-col :span='18'>
           <el-row>
@@ -220,6 +218,7 @@ export default {
     padding-left: 10px;
     position: relative;
     top: 14px;
+    cursor: pointer;
   }
   .logo h1 {
     font:italic bold 54px/54px arial,sans-serif;
@@ -266,7 +265,7 @@ export default {
     font-weight: bold;
   }
   .menu-line .is-active {
-    color: #627fff;
+    color: #409EFF;
   }
   .hello {
     text-align: center;
@@ -279,7 +278,7 @@ export default {
   .hello h3 {
     margin-bottom: 20px;
     font-size: 18px;
-    color: #0099ff;
+    color: #409EFF;
   }
   .hello .light{
     color: #ddd;
