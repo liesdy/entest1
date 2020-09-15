@@ -30,8 +30,8 @@
         label="出处">
         <template slot-scope="scope" v-if='scope.row.article'>
           <p class="from" v-for='article in scope.row.article' :key='article.id'>
-            <span class='c95 fz12' v-if='article.book'>{{ article.book }} - </span>
-            <span class='c95 fz12' v-if='article.lesson'>Lesson{{ article.lesson }}</span><br>
+            <span class='c95 fz12' v-if='article.book'>{{ article.book.book_name }} - </span>
+            <!-- <span class='c95 fz12' v-if='article.lesson'>Lesson{{ article.lesson }}</span><br> -->
             <span>{{ article.title }}</span>
           </p>
         </template>

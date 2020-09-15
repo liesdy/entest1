@@ -39,7 +39,7 @@
       </template>
       <template v-else>
         <p v-for='item in rootData.article' :key='item.id'>
-          <span>{{ item.book }} </span>
+          <span  v-if='item.book'>{{ item.book.book_name }} </span>
           <span v-if='item.lesson'>&nbsp;&nbsp; Lesson{{ item.lesson }} ——</span>
           <el-button type='text' @click='emitLeap(item.id, "article")'>&nbsp;{{ item.title }}</el-button>
         </p>

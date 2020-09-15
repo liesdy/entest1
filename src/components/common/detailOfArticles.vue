@@ -8,7 +8,8 @@
               <span>{{rootData.title}}</span> <starIcon :baseData='rootData' :inDetail='true'  starType='article' @dialogHandlerSuccess='dialogHandlerSuccess'></starIcon>
             </el-form-item>
             <el-form-item label="来源:">
-              <span v-if='rootData.book'>{{rootData.book.book_name}}</span><span v-if='rootData.lesson'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lesson{{rootData.lesson}}</span>
+              <!-- <span v-if='rootData.book'>{{rootData.book.book_name}}</span><span v-if='rootData.lesson'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lesson{{rootData.lesson}}</span> -->
+              <span v-if='rootData.book'>{{rootData.book.book_name}}</span>
             </el-form-item>
             <el-form-item label="英文:">
               <!-- <template v-html="rootData.en"></template> -->
@@ -36,6 +37,13 @@
               <i v-else class="el-icon-error fz16 red-c">exist</i>
             </template>
           </el-form-item>
+          <!-- <el-form-item label="第几课">
+            <el-input v-model='rootData2.lesson' @input="checkExist" class="w-input"></el-input>
+            <template v-if='rootData2.en && isAdd'>
+              <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i>
+              <i v-else class="el-icon-error fz16 red-c">exist</i>
+            </template>
+          </el-form-item> -->
           <el-form-item label="来源:">
             <!-- <el-select v-model="rootData2.book" placeholder="请选择书籍" class="w-input">
               <el-option

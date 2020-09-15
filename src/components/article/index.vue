@@ -24,11 +24,11 @@
         label="课本"
         min-width="140">
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         prop="lesson"
         label="序号"
         min-width="140">
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         prop="stared"
         width="80"
