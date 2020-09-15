@@ -151,7 +151,7 @@ export default {
     confirmCreate () {
       let postData = {
         en: this.addWord,
-        cn: null,
+        cn: [],
         pos: null,
         related_word: null,
         detail: {
