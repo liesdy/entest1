@@ -55,7 +55,7 @@
             placeholder='请输入'
           ></el-autocomplete> -->
           <h4>添加新的单词</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addWord' placeholder='请输入标题'></el-input>
+          <el-input @input="checkExist" size='small' class="w-input" v-model='addWord' placeholder='请输入英文'></el-input>
           <template v-if='addWord'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
