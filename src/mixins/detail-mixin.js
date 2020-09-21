@@ -55,7 +55,9 @@ export default {
             })
           }
         } else {
-          console.log('error submit!!')
+          if (!this.canAdd) {
+            this.$message('内容已存在')
+          }
           return false
         }
       })

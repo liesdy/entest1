@@ -32,7 +32,7 @@
         <template v-else>
           <el-form-item label="标题">
             <el-input v-model='rootData2.title' @input="checkExist" class="w-input"></el-input>
-            <template v-if='rootData2.en && isAdd'>
+            <template v-if='rootData2.title && isAdd'>
               <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i>
               <i v-else class="el-icon-error fz16 red-c">exist</i>
             </template>
