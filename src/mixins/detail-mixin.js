@@ -32,6 +32,13 @@ export default {
     }
   },
   computed: {
+    user () {
+      if (this.$store.state.user) {
+        return this.$store.state.user
+      } else {
+        return null
+      }
+    }
   },
   methods: {
     formatTime: formatTime,

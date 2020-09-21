@@ -96,7 +96,7 @@
           <!-- 取消 -->
           <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
           <!-- 编辑 -->
-          <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
+          <el-button class='fade' type="primary" @click="edit" v-if='isView && user' icon="el-icon-edit" circle size='small'></el-button>
           <!-- 查看历史 -->
           <el-button class='fade' v-if='isView' @click="showHistory" type="warning" icon="el-icon-time" circle size='small'></el-button>
         </el-row>
@@ -179,11 +179,11 @@
 
 <script>
 import api from '../word/api.js'
-import indexMixin from '@/mixins/detail-mixin'
+import detailMixin from '@/mixins/detail-mixin'
 // import { formatTime } from '@/utils/commonUtils.js'
 export default {
   name: 'detailOfWords',
-  mixins: [indexMixin],
+  mixins: [detailMixin],
   components: {
   },
   props: {

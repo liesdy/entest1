@@ -4,8 +4,8 @@ import { Message } from 'element-ui'
 /**
  * 选择当前的运行环境
  */
-// let currentEnv = 'dev'
-let currentEnv = 'prod'
+let currentEnv = 'dev'
+// let currentEnv = 'prod'
 
 let urlList = {
   dev: 'http://127.0.0.1:8000',
@@ -16,23 +16,13 @@ let checkNameUrl = {
   prod: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check'
 }
 const service = axios.create({
-  // baseURL: 'http://127.0.0.1:8000',
   baseURL: urlList[currentEnv],
-  // baseURL: 'localhost',
-  // baseURL: 'localhost:8000',
-  // baseURL: 'http://124.70.214.237:8000',
-  // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
   method: 'POST'
 })
 const service2 = axios.create({
-  // baseURL: 'http://127.0.0.1:8000',
   baseURL: urlList[currentEnv],
-  // baseURL: 'localhost',
-  // baseURL: 'localhost:8000',
-  // baseURL: 'http://124.70.214.237:8000',
-  // baseURL: 'http://192.168.0.99:8000',
   withCredentials: false,
   timeout: 5000, // request timeout
   method: 'POST'
@@ -51,11 +41,6 @@ service.interceptors.request.use(function (config) {
 })
 service.interceptors.response.use(response => {
   const res = response.data
-  // if (!res.login_ed) {
-  //   localStorage.token = null
-  //   localStorage.userName = null
-  //   localStorage.userId = null
-  // }
   return res
 })
 service2.interceptors.request.use(function (config) {
@@ -73,19 +58,13 @@ service2.interceptors.response.use(response => {
 function checkName () {
   return new Promise((resolve, reject) => {
     service({
-      // url: 'http://127.0.0.1:8000/myEnglishNote/auth/login_check',
       url: checkNameUrl[currentEnv],
-      // url: 'http://localhost:8000/myEnglishNote/auth/login_check',
-      // url: 'http://192.168.0.99:8000/myEnglishNote/auth/login_check',
-      // url: 'http://124.70.214.237:8000/myEnglishNote/auth/login_check',
       method: 'post',
       data: null
     }).then(res => {
-      // console.log('res: ', res)
       if (res.data.result === 'success') {
         resolve(res.data.result)
       } else {
-        // resolve(res.data.result)
         reject(res.data.result)
       }
     })
@@ -93,14 +72,7 @@ function checkName () {
 }
 export default {
   post (url, data) {
-    return checkName().then(res => {
-      return service({
-        url,
-        method: 'post',
-        data
-      })
-    }).catch(res => {
-      // console.log('localStorage: ', localStorage)
+    return checkName().catch(res => {
       localStorage.removeItem('token')
       localStorage.removeItem('userName')
       localStorage.removeItem('userId')
@@ -108,17 +80,13 @@ export default {
         message: '需要登录后再进行操作',
         type: 'warn'
       })
-      // return service({
-      //   url,
-      //   method: 'post',
-      //   data
-      // })
+    }).then(res => {
+      return service({
+        url,
+        method: 'post',
+        data
+      })
     })
-    // return service({
-    //   url,
-    //   method: 'post',
-    //   data
-    // })
   },
   post2 (url, data) {
     return service2({
@@ -126,100 +94,5 @@ export default {
       method: 'post',
       data
     })
-    // return service({
-    //   url,
-    //   method: 'post',
-    //   data
-    // })
   }
-  // findOne(prefix, id) {
-  //   return request({
-  //     url: `${prefix}/findOne`,
-  //     method: 'post',
-  //     data: {
-  //       id
-  //     }
-  //   })
-  // },
-  // findPage(prefix, data) {
-  //   if (data['filter'] != null) {
-  //     data.filter.push({
-  //       column: 'delFlag',
-  //       type: 'andEq',
-  //       value: 0
-  //     })
-  //   }
-  //   return request({
-  //     url: `${prefix}/findPage`,
-  //     method: 'post',
-  //     data
-  //   })
-  // },
-  // findList(prefix, data) {
-  //   if (data['filter'] != null) {
-  //     data.filter.push({
-  //       column: 'delFlag',
-  //       type: 'andEq',
-  //       value: 0
-  //     })
-  //   }
-  //   return request({
-  //     url: `${prefix}/findList`,
-  //     method: 'post',
-  //     data
-  //   })
-  // },
-  // save(prefix, data) {
-  //   return request({
-  //     url: `${prefix}/save`,
-  //     method: 'post',
-  //     data
-  //   })
-  // },
-  // update(prefix, data) {
-  //   return request({
-  //     url: `${prefix}/update`,
-  //     method: 'post',
-  //     data
-  //   })
-  // },
-  // delete(prefix, id) {
-  //   return request({
-  //     url: `${prefix}/delete`,
-  //     method: 'post',
-  //     data: {
-  //       id
-  //     }
-  //   })
-  // },
-  // /**
-  //  * 批量删除
-  //  * @param prefix
-  //  * @param ids 待删除ID数组[1,2,3]
-  //  * @returns {AxiosPromise}
-  //  */
-  // batchDelete(prefix, ids) {
-  //   return request({
-  //     url: `${prefix}/deleteList`,
-  //     method: 'post',
-  //     data: {
-  //       ids
-  //     }
-  //   })
-  // },
-  // // upload (prefix, data) {
-  // //   return request({
-  // //     url: `${prefix}/upload`,
-  // //     method: 'post',
-  // //     data
-  // //   })
-  // // },
-  // export (prefix, data) {
-  //   return request({
-  //     url: `${prefix}/download`,
-  //     method: 'post',
-  //     responseType: 'blob',
-  //     data
-  //   })
-  // }
 }

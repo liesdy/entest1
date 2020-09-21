@@ -44,7 +44,7 @@
         <el-button class='fade' @click="upDateBaseDetail('ruleForm')" v-if='!isAdd && !isView' type="success" icon="el-icon-check" circle size='small'></el-button>
         <!-- 取消 -->
         <el-button class='fade' type="info" @click="cancel" v-if='!isAdd && !isView' icon="el-icon-close" circle size='small'></el-button>
-        <el-button class='fade' type="primary" @click="edit" v-if='isView' icon="el-icon-edit" circle size='small'></el-button>
+        <el-button class='fade' type="primary" @click="edit" v-if='isView && user' icon="el-icon-edit" circle size='small'></el-button>
         <el-button class='fade' v-if='isView' @click="showHistory" type="warning" icon="el-icon-time" circle size='small'></el-button>
       </el-col>
     </el-row>
@@ -111,10 +111,10 @@
 
 <script>
 import api from '../phrase/api.js'
-import indexMixin from '@/mixins/detail-mixin'
+import detailMixin from '@/mixins/detail-mixin'
 export default {
   name: 'detailOfPhrases',
-  mixins: [indexMixin],
+  mixins: [detailMixin],
   props: {
   },
   data () {

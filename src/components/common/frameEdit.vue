@@ -7,7 +7,7 @@
       <!-- isEdit: {{ isEdit }} -->
       <el-button class='fade' v-if='isEdit' @click="submit" size="small" type="success" icon="el-icon-check" circle></el-button>
       <el-button class='fade' v-if='isEdit' @click="cancel" size="small" type="info" icon="el-icon-close" circle></el-button>
-      <el-button class='fade' v-if='!isEdit' @click="edit" size="small" type="primary" icon="el-icon-edit" circle></el-button>
+      <el-button class='fade' v-if='!isEdit && user' @click="edit" size="small" type="primary" icon="el-icon-edit" circle></el-button>
       <el-button class='fade' v-if='!isEdit && history' @click="showHistory" size="small" type="warning" icon="el-icon-time" circle></el-button>
     </el-col>
   </el-row>
@@ -35,6 +35,13 @@ export default {
     }
   },
   computed: {
+    user () {
+      if (this.$store.state.user) {
+        return this.$store.state.user
+      } else {
+        return null
+      }
+    }
   },
   watch: {
   },
