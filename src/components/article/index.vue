@@ -23,6 +23,10 @@
         prop="book"
         label="课本"
         min-width="140">
+        <template slot-scope="scope">
+          <!-- 收藏 -->
+          <span>{{ scope.row.book.book_name }}</span>
+        </template>
       </el-table-column>
       <!-- <el-table-column
         prop="lesson"
