@@ -1,5 +1,5 @@
 <template>
-  <el-row class='edit-frame'>
+  <el-row class='edit-frame' type="flex" align="middle">
     <el-col :span='20'>
       <slot></slot>
     </el-col>
@@ -66,10 +66,22 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
+  .edit-frame {
+    border-radius: 5px;
+    transition: all 0.4s;
+  }
   .edit-frame .fade{
-    display: none
+    /* display: none */
+    transition: all 0.4s;
+    opacity: 0;
+  }
+  .edit-frame:hover {
+    /* transition: all 0.8s; */
+    background: rgba(240, 240, 240, 0.4)
   }
   .edit-frame:hover .fade {
-    display: inline-block;
+    /* transition: all 0.8s; */
+    opacity: 1;
+    /* display: inline-block; */
   }
 </style>

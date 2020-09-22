@@ -1,6 +1,6 @@
 <template>
   <el-form label-position="right" label-width="80px" :model="rootData2" :rules="rules" ref="ruleForm">
-    <el-row class="edit-frame">
+    <el-row class="edit-frame" type="flex" align="middle">
       <el-col :span='20'>
         <template v-if='isView'>
           <div class="just-show">
@@ -269,11 +269,23 @@ export default {
     padding-bottom: 5px;
     margin-bottom: 5px;
   }
+  .edit-frame {
+    border-radius: 5px;
+    transition: all 0.4s;
+  }
   .edit-frame .fade{
-    display: none
+    /* display: none */
+    transition: all 0.4s;
+    opacity: 0;
+  }
+  .edit-frame:hover {
+    /* transition: all 0.8s; */
+    background: rgba(240, 240, 240, 0.4)
   }
   .edit-frame:hover .fade {
-    display: inline-block;
+    /* transition: all 0.8s; */
+    opacity: 1;
+    /* display: inline-block; */
   }
   .just-show {
     .el-form-item {

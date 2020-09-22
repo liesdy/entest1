@@ -4,37 +4,45 @@
     <el-row>
     </el-row> -->
     <el-form ref="form" label-width="80px">
-      <el-form-item label="留言:">
-        <template v-if="commentList && commentList.length">
-          <div v-for='item in commentList' :key='item.id' class="comment-item">
-            <el-row class='title-line'>
-              <el-col :span='16' class="name">{{ item.auther.name }}:</el-col>
-              <el-col :span='8' class="tr-s">{{ formatTime(new Date(item.time)) }}</el-col>
+      <template v-if="!fold">
+        <el-form-item label="留言:">
+          <template v-if="commentList && commentList.length">
+            <div v-for='item in commentList' :key='item.id' class="comment-item">
+              <el-row class='title-line'>
+                <el-col :span='16' class="name">{{ item.auther.name }}:</el-col>
+                <el-col :span='8' class="tr-s">{{ formatTime(new Date(item.time)) }}</el-col>
+              </el-row>
+              <el-row class='content-line'>
+                {{ item.contain }}
+              </el-row>
+            </div>
+          </template>
+          <template v-else>
+            <el-row type='flex' justify="center" class="tip">
+              暂无留言
             </el-row>
-            <el-row class='content-line'>
-              {{ item.contain }}
-            </el-row>
-          </div>
-        </template>
-        <template v-else>
-          <el-row type='flex' justify="center" class="tip">
-            暂无留言
-          </el-row>
-        </template>
-      </el-form-item>
-      <el-form-item label="发表:">
-        <el-input
-          ref='testarea'
-          type="textarea"
-          :rows="3"
-          :placeholder="user ? '请输入内容' : '登录后可提交留言'"
-          :disabled="!user"
-          v-model="content">
-        </el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="addComment" :disabled="!user">留言</el-button>
-      </el-form-item>
+          </template>
+        </el-form-item>
+        <el-form-item label="发表:">
+          <el-input
+            ref='testarea'
+            type="textarea"
+            :rows="3"
+            :placeholder="user ? '请输入内容' : '登录后可提交留言'"
+            :disabled="!user"
+            v-model="content">
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="addComment" :disabled="!user">留言</el-button>
+        </el-form-item>
+      </template>
+      <el-row class="show-control">
+        <el-form-item>
+          <p v-if='fold' @click="fold = false">展开留言</p>
+          <p v-else @click="fold = true">收起留言</p>
+        </el-form-item>
+      </el-row>
     </el-form>
   </div>
 </template>
@@ -51,7 +59,8 @@ export default {
   data () {
     return {
       content: '',
-      commentList: []
+      commentList: [],
+      fold: true // 默认折叠
     }
   },
   computed: {
@@ -132,5 +141,17 @@ export default {
     font-size: 14px;
     background: rgba(230, 230, 230, 0.4);
     border-radius: 10px
+  }
+  .show-control {
+    text-align: center;
+    color: #0077ff;
+  }
+  .show-control >>> .el-form-item__content {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .show-control >>> .el-form-item__content:hover{
+    background: rgba(240, 240, 240, 0.5);
   }
 </style>

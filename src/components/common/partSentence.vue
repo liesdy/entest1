@@ -15,7 +15,7 @@
           closable
           :disable-transitions="false"
           @close="handleEditingListClose(item)">
-          {{item.en}}
+          {{item.en}} {{item.cn}}
         </el-tag>
         <el-tag
           class='mr10'
@@ -24,14 +24,14 @@
           closable
           :disable-transitions="false"
           @close="handleAddedListClose(item)">
-          {{item.en}}
+          {{item.en}} {{item.cn}}
         </el-tag>
         <el-button @click="openSelectDialog" size="small" type="danger" icon="el-icon-plus" circle></el-button>
       </template>
       <template v-else>
         <p v-for='item in rootData.sentence' :key='item.id'>
           <span>{{ item.book }} </span>
-          <el-button type='text' @click='emitLeap(item.id, "sentence")'>&nbsp;{{ item.en }}</el-button>
+          <el-button type='text' @click='emitLeap(item.id, "sentence")'>&nbsp;{{ item.en }}  {{ item.cn }}</el-button>
         </p>
       </template>
     </el-form-item>

@@ -41,12 +41,13 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入'
           ></el-autocomplete> -->
-          <h4>添加新的词根</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addWordRoot' placeholder='请输入'></el-input>
+          <h4 class="mb10">添加新的词根</h4>
+          <el-input @input="checkExist" size='small' class="w-input" v-model='addWordRoot' placeholder='请输入词根'></el-input>
           <template v-if='addWordRoot'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
           </template>
+          <el-input size='small' class="w200" v-model='addCn' placeholder='中文'></el-input>
           <el-button v-if='canAdd && addWordRoot' type="success" size="small" @click="confirmCreate" round>
             确认
             <i class="el-icon-plus el-icon--right"></i>
@@ -128,7 +129,8 @@ export default {
           value: null
         }
       },
-      addWordRoot: null
+      addWordRoot: null,
+      addCn: null
     }
   },
   computed: {
@@ -144,7 +146,7 @@ export default {
     confirmCreate () {
       let postData = {
         en: this.addWordRoot,
-        cn: null,
+        cn: this.addCn,
         contain: null,
         remark: null,
         userId: this.$store.state.user.id

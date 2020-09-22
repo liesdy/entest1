@@ -8,17 +8,6 @@
         :fetch-suggestions='querySearchAsync'
         placeholder='请输入'
       ></el-autocomplete>
-      <!-- <el-select size='small' placeholder='请选择课本' v-model='filters.book.value'></el-select> -->
-      <!-- <el-autocomplete
-        v-model='filters.book.value'
-        :fetch-suggestions='querySearchAsync'
-        placeholder='请输入课本'
-      ></el-autocomplete> -->
-      <!-- <el-autocomplete
-        v-model='filters.lesson.value'
-        :fetch-suggestions='querySearchAsync'
-        placeholder='请选择第几课'
-      ></el-autocomplete> -->
       <el-button type="primary" icon="el-icon-zoom-in" size="small" round  @select='handleFilterChange'>筛选</el-button>
     </el-row>
     <el-row class='list-box'>
@@ -46,6 +35,7 @@
         </template>
         </el-table-column>
       </cm-table>
+
       <el-row class="mt10">
         <template v-if='adding'>
           <!-- <el-autocomplete
@@ -54,12 +44,21 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入'
           ></el-autocomplete> -->
-          <h4>添加新的单词</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addWord' placeholder='请输入英文'></el-input>
+          <h4 class="mb10">添加新的单词</h4>
+          <el-input @input="checkExist" size='small' class="w200" v-model='addWord' placeholder='请输入英文'></el-input>
           <template v-if='addWord'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
           </template>
+          <el-select v-model="addPos" placeholder="请选择词性" class="w200" size='small' required>
+            <el-option
+              v-for="item in posList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <el-input size='small' class="w200" v-model='addCn' placeholder='中文'></el-input>
           <el-button v-if='canAdd && addWord' type="success" size="small" @click="confirmCreate" round>
             确认
             <i class="el-icon-plus el-icon--right"></i>
@@ -68,6 +67,7 @@
         </template>
         <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的单词</el-button>
       </el-row>
+
       <el-row class="mt10">
         <h4>新添加关联的单词：</h4>
       </el-row>
@@ -105,6 +105,7 @@
           </el-col>
         </el-row>
       </el-row>
+
       <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length'>
         <el-button type="danger" round size="small" @click='confirmAdd'>确认添加</el-button>
         <el-button type="info" round size="small" @click='cancel'>取消</el-button>
@@ -135,7 +136,51 @@ export default {
           value: null
         }
       },
-      addWord: null
+      addWord: null,
+      addPos: null,
+      addCn: null,
+      posList: [
+        {
+          value: 1,
+          label: 'n. 名词'
+        },
+        {
+          value: 2,
+          label: 'vi. 不及物动词'
+        },
+        {
+          value: 3,
+          label: 'vt. 及物动词'
+        },
+        {
+          value: 4,
+          label: 'pron. 代词'
+        },
+        {
+          value: 5,
+          label: 'adj. 形容词'
+        },
+        {
+          value: 6,
+          label: 'adv. 副词'
+        },
+        {
+          value: 7,
+          label: 'art. 冠词'
+        },
+        {
+          value: 8,
+          label: 'prep. 介词'
+        },
+        {
+          value: 9,
+          label: 'conj. 连词'
+        },
+        {
+          value: 10,
+          label: 'interj. 感叹词'
+        }
+      ]
     }
   },
   computed: {
@@ -151,7 +196,12 @@ export default {
     confirmCreate () {
       let postData = {
         en: this.addWord,
-        cn: [],
+        cn: [
+          {
+            pos: this.addPos,
+            cn: this.addCn
+          }
+        ],
         pos: null,
         related_word: null,
         detail: {

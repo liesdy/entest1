@@ -46,31 +46,32 @@
         <template v-if='adding'>
           <!-- <el-autocomplete
             size='small'
-            v-model='addPhrase'
+            v-model='addSentence'
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入'
           ></el-autocomplete> -->
-          <h4>添加新的短语</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addPhrase' placeholder='请输入标题'></el-input>
-          <template v-if='addPhrase'>
+          <h4 class="mb10">添加新的例句</h4>
+          <el-input @input="checkExist" size='small' class="w-input" v-model='addSentence' placeholder='请输入例句'></el-input>
+          <template v-if='addSentence'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
           </template>
-          <el-button v-if='canAdd && addPhrase' type="success" size="small" @click="confirmCreate" round>
+          <el-input size='small' class="w200" v-model='addCn' placeholder='中文'></el-input>
+          <el-button v-if='canAdd && addSentence' type="success" size="small" @click="confirmCreate" round>
             确认
             <i class="el-icon-plus el-icon--right"></i>
           </el-button>
           <!-- <el-button type="success" icon="el-icon-check" size="small" @click="confirmCreate" circle></el-button> -->
         </template>
-        <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的短语</el-button>
+        <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的例句</el-button>
       </el-row>
       <el-row class="mt10">
-        <h4>新添加关联的短语：</h4>
+        <h4>新添加关联的例句：</h4>
       </el-row>
       <el-row>
         <el-row v-if='multipleSelection && multipleSelection.length'>
           <el-col :span='3' class="tr-s">
-            <span class="mr10 pos">选择的短语:</span>
+            <span class="mr10 pos">选择的例句:</span>
           </el-col>
           <el-col :span='21'>
             <el-tag
@@ -86,7 +87,7 @@
         </el-row>
         <el-row class="mt10" v-if='createdList && createdList.length'>
           <el-col :span='3' class="tr-s">
-            <span class="mr10 pos">新增的短语:</span>
+            <span class="mr10 pos">新增的例句:</span>
           </el-col>
           <el-col :span='21'>
             <el-tag
@@ -131,7 +132,8 @@ export default {
           value: null
         }
       },
-      addPhrase: null
+      addSentence: null,
+      addCn: null
     }
   },
   computed: {
@@ -150,15 +152,15 @@ export default {
     // },
     confirmCreate () {
       let postData = {
-        en: this.addPhrase,
-        cn: null,
+        en: this.addSentence,
+        cn: this.addCn,
         contain: null,
         remark: null,
         userId: this.$store.state.user.id
       }
       api.add(postData).then(res => {
-        let newWord = res.data
-        this.createdList.push(newWord)
+        let newSentence = res.data
+        this.createdList.push(newSentence)
       })
     },
     // 查询并过滤

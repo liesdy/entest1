@@ -49,7 +49,7 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入标题'
           ></el-autocomplete> -->
-          <h4>添加新的课文</h4>
+          <h4 class="mb10">添加新的课文</h4>
           <el-input @input="checkExist" size='small' class="w-input" v-model='addTitle' placeholder='请输入标题'></el-input>
           <template v-if='addTitle'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
