@@ -36,6 +36,7 @@
       </template>
     </el-form-item>
     <el-dialog
+      :close-on-click-modal='false'
       :modal='true'
       append-to-body
       title="Select Sentence"

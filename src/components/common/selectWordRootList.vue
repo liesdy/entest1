@@ -41,8 +41,8 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入'
           ></el-autocomplete> -->
-          <h4 class="mb10">添加新的词根</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addWordRoot' placeholder='请输入词根'></el-input>
+          <h4 class="mb10 ml10">添加新的词根</h4>
+          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addWordRoot' placeholder='请输入词根'></el-input>
           <template v-if='addWordRoot'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
@@ -56,8 +56,8 @@
         </template>
         <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的词根</el-button>
       </el-row>
-      <el-row class="mt10">
-        <h4>新添加关联的词根：</h4>
+      <el-row class="mt20 ml10 mb5">
+        <h4>本次添加关联的词根：</h4>
       </el-row>
       <el-row>
         <el-row v-if='multipleSelection && multipleSelection.length'>
@@ -72,7 +72,7 @@
               :key='item.id'
               closable
               @close="handleCloseSelection(index)">
-              {{ item.en }}
+              {{ item.en }} {{ item.cn }}
             </el-tag>
           </el-col>
         </el-row>
@@ -88,12 +88,12 @@
               :key='item.id'
               closable
               @close="handleCloseCreated(index)">
-              {{ item.en }}
+              {{ item.en }} {{ item.cn }}
             </el-tag>
           </el-col>
         </el-row>
       </el-row>
-      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length'>
+      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length' class="mt10">
         <!-- {{addedArticleList}} -->
         <el-button type="danger" round size="small" @click='confirmAdd'>确认添加</el-button>
         <el-button type="info" round size="small" @click='cancel'>取消</el-button>
@@ -154,6 +154,8 @@ export default {
       api.add(postData).then(res => {
         let newData = res.data
         this.createdList.push(newData)
+        this.addWordRoot = null
+        this.addCn = null
         // console.log('res: ', res)
       })
     }
@@ -174,5 +176,8 @@ export default {
   }
   .edit-frame:hover .fade {
     display: inline-block;
+  }
+  .list-box {
+    padding-bottom: 20px;
   }
 </style>

@@ -24,8 +24,7 @@
         label="课本"
         min-width="140">
         <template slot-scope="scope">
-          <!-- 收藏 -->
-          <span>{{ scope.row.book.book_name }}</span>
+          <span v-if="scope.row.book">{{ scope.row.book.book_name }}</span>
         </template>
       </el-table-column>
       <!-- <el-table-column

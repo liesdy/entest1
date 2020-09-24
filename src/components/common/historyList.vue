@@ -2,7 +2,7 @@
   <el-row class='history-list'>
     <el-timeline>
       <el-timeline-item :timestamp="formatTime(item.time)" placement="top" v-for="item in historyList" :key="item.id">
-        <el-card hadow="always">
+        <el-card shadow="hover">
           <p>{{item.author.name}}:</p>
           <p v-if='item.dataListAdd && item.dataListAdd.length'>
             添加了

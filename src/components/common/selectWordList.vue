@@ -30,7 +30,6 @@
           label="中文"
           min-width="180">
           <template slot-scope="scope">
-          <!-- 收藏 -->
           <span v-for="item in scope.row.cn" :key="item.id">{{ item.cn }} </span>
         </template>
         </el-table-column>
@@ -44,7 +43,7 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入'
           ></el-autocomplete> -->
-          <h4 class="mb10">添加新的单词</h4>
+          <h4 class="mb10 ml10">添加新的单词</h4>
           <el-input @input="checkExist" size='small' class="w200" v-model='addWord' placeholder='请输入英文'></el-input>
           <template v-if='addWord'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
@@ -59,7 +58,7 @@
             </el-option>
           </el-select>
           <el-input size='small' class="w200" v-model='addCn' placeholder='中文'></el-input>
-          <el-button v-if='canAdd && addWord' type="success" size="small" @click="confirmCreate" round>
+          <el-button v-if='canAdd && addWord && addPos' type="success" size="small" @click="confirmCreate" round>
             确认
             <i class="el-icon-plus el-icon--right"></i>
           </el-button>
@@ -68,8 +67,8 @@
         <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的单词</el-button>
       </el-row>
 
-      <el-row class="mt10">
-        <h4>新添加关联的单词：</h4>
+      <el-row class="mt20 ml10 mb5">
+        <h4>本次添加关联的单词：</h4>
       </el-row>
       <el-row>
         <el-row v-if='multipleSelection && multipleSelection.length'>
@@ -84,7 +83,7 @@
               :key='item.id'
               closable
               @close="handleCloseSelection(index)">
-              {{ item.en }}
+              {{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
             </el-tag>
           </el-col>
         </el-row>
@@ -100,13 +99,13 @@
               :key='item.id'
               closable
               @close="handleCloseCreated(index)">
-              {{ item.en }}
+              {{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
             </el-tag>
           </el-col>
         </el-row>
       </el-row>
 
-      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length'>
+      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length' class="mt10">
         <el-button type="danger" round size="small" @click='confirmAdd'>确认添加</el-button>
         <el-button type="info" round size="small" @click='cancel'>取消</el-button>
       </el-row>
@@ -137,7 +136,7 @@ export default {
         }
       },
       addWord: null,
-      addPos: null,
+      addPos: 1,
       addCn: null,
       posList: [
         {
@@ -199,7 +198,7 @@ export default {
         cn: [
           {
             pos: this.addPos,
-            cn: this.addCn
+            cn: this.addCn || ''
           }
         ],
         pos: null,
@@ -220,6 +219,9 @@ export default {
       api.add(postData).then(res => {
         let newWord = res.data
         this.createdList.push(newWord)
+        this.addWord = null
+        this.addPos = null
+        this.addCn = null
       })
     },
     // 查询并过滤
@@ -256,5 +258,8 @@ export default {
   }
   .edit-frame:hover .fade {
     display: inline-block;
+  }
+  .list-box {
+    padding-bottom: 20px;
   }
 </style>

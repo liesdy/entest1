@@ -30,15 +30,18 @@
           prop="book"
           label="课本"
           min-width="180">
+          <template slot-scope="scope">
+            <span v-if='scope.row.book'>{{ scope.row.book.book_name }}</span>
+          </template>
         </el-table-column>
-        <el-table-column
+        <!-- <el-table-column
           prop="lesson"
           label="序号"
           min-width="80">
           <template slot-scope="scope">
             <span v-if='scope.row.lesson'>Lesson {{ scope.row.lesson }}</span>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </cm-table>
       <el-row class="mt10">
         <template v-if='adding'>
@@ -49,8 +52,8 @@
             :fetch-suggestions='querySearchAsync'
             placeholder='请输入标题'
           ></el-autocomplete> -->
-          <h4 class="mb10">添加新的课文</h4>
-          <el-input @input="checkExist" size='small' class="w-input" v-model='addTitle' placeholder='请输入标题'></el-input>
+          <h4 class="mb10 ml10">添加新的课文</h4>
+          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addTitle' placeholder='请输入标题'></el-input>
           <template v-if='addTitle'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
@@ -62,8 +65,8 @@
         </template>
         <el-button v-else type="success" icon="el-icon-plus" size="small" @click="openAddArea" round>添加未收录的文章</el-button>
       </el-row>
-      <el-row class="mt10">
-        <h4>新添加关联的课文：</h4>
+      <el-row class="mt20 ml10 mb5">
+        <h4>本次添加关联的课文：</h4>
       </el-row>
       <el-row>
         <el-row v-if='multipleSelection && multipleSelection.length'>
@@ -99,7 +102,7 @@
           </el-col>
         </el-row>
       </el-row>
-      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length'>
+      <el-row justify="center" type='flex' v-if='multipleSelection.length || createdList.length' class="mt10">
         <el-button type="danger" round size="small" @click='confirmAdd'>确认添加</el-button>
         <el-button type="info" round size="small" @click='cancel'>取消</el-button>
       </el-row>
@@ -169,6 +172,7 @@ export default {
         api.add(postData).then(res => {
           let newWord = res.data
           this.createdList.push(newWord)
+          this.addTitle = null
         })
       }
     },
@@ -206,5 +210,8 @@ export default {
   }
   .edit-frame:hover .fade {
     display: inline-block;
+  }
+  .list-box {
+    padding-bottom: 20px;
   }
 </style>

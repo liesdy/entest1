@@ -1,5 +1,5 @@
 <template>
-  <p v-if="rootData">
+  <p v-if="rootData" class="mt10">
     总浏览次数: {{ rootData.times }} 次&nbsp;
     <el-dropdown v-if='user && rootData.myViewTimes'>
       <span class="link">我浏览了 {{ rootData.myViewTimes.length }} 次</span>

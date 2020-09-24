@@ -24,7 +24,7 @@
           closable
           :disable-transitions="false"
           @close="handleEditingListClose(item)">
-          {{item.en}} {{item.cn}}
+          {{item.en}} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
         </el-tag>
         <el-tag
           class='mr10'
@@ -33,17 +33,18 @@
           closable
           :disable-transitions="false"
           @close="handleAddedListClose(item)">
-          {{item.en}} {{item.cn}}
+          {{item.en}} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
         </el-tag>
         <el-button @click="openSelectDialog" size="small" type="danger" icon="el-icon-plus" circle></el-button>
       </template>
       <template v-else>
         <p v-for='item in rootData.words' :key='item.id'>
-          <el-button type='text' @click='emitLeap(item.id, "word")'>&nbsp;{{ item.en }} {{ item.cn }}</el-button>
+          <el-button type='text' @click='emitLeap(item.id, "word")'>&nbsp;{{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}</el-button>
         </p>
       </template>
     </el-form-item>
     <el-dialog
+      :close-on-click-modal='false'
       :modal='true'
       append-to-body
       title="Select Word"
