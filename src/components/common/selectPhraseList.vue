@@ -51,7 +51,7 @@
             placeholder='请输入'
           ></el-autocomplete> -->
           <h4 class="mb10 ml10">添加新的短语</h4>
-          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addPhrase' placeholder='请输入短语'></el-input>
+          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addPhrase' placeholder='请输入短语' ref='addnew'></el-input>
           <template v-if='addPhrase'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
@@ -150,6 +150,7 @@ export default {
         this.createdList.push(newPhrase)
         this.addPhrase = null
         this.addCn = null
+        this.$refs.addnew.focus()
       })
     },
     // 查询并过滤

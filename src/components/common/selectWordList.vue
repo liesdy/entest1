@@ -44,7 +44,7 @@
             placeholder='请输入'
           ></el-autocomplete> -->
           <h4 class="mb10 ml10">添加新的单词</h4>
-          <el-input @input="checkExist" size='small' class="w200" v-model='addWord' placeholder='请输入英文'></el-input>
+          <el-input @input="checkExist" size='small' class="w200" v-model='addWord' placeholder='请输入英文' ref='addnew'></el-input>
           <template v-if='addWord'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
@@ -220,8 +220,9 @@ export default {
         let newWord = res.data
         this.createdList.push(newWord)
         this.addWord = null
-        this.addPos = null
+        this.addPos = 1
         this.addCn = null
+        this.$refs.addnew.focus()
       })
     },
     // 查询并过滤

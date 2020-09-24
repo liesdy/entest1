@@ -53,7 +53,7 @@
             placeholder='请输入标题'
           ></el-autocomplete> -->
           <h4 class="mb10 ml10">添加新的课文</h4>
-          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addTitle' placeholder='请输入标题'></el-input>
+          <el-input @input="checkExist" size='small' class="w-input ml10" v-model='addTitle' placeholder='请输入标题' ref='addnew'></el-input>
           <template v-if='addTitle'>
             <!-- <i v-if='canAdd' class="el-icon-error fz16 el-icon-success green-c"></i> -->
             <i v-if='!canAdd' class="el-icon-error fz16 red-c">exist</i>
@@ -173,6 +173,7 @@ export default {
           let newWord = res.data
           this.createdList.push(newWord)
           this.addTitle = null
+          this.$refs.addnew.focus()
         })
       }
     },
