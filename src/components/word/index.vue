@@ -37,7 +37,7 @@
         width="140">
         <template slot-scope="scope" v-if='scope.row.cn'>
           <p v-for='(item, index) in scope.row.cn' :key="index">
-            {{ toName(item.pos) }} &nbsp; {{item.cn}}
+            {{ toPosName(item.pos) }} &nbsp; {{item.cn}}
           </p>
         </template>
       </el-table-column>
@@ -136,7 +136,7 @@ export default {
   watch: {
   },
   methods: {
-    toName: toPosName
+    toPosName
     // showStarDialog (row) {
     //   this.choicedRow = row
     //   this.dialogWidth = '400px'
