@@ -107,7 +107,7 @@ export default {
     querySearchAsync (queryString, cb) {
       if (queryString && queryString.length > 1) {
         let postData = {
-          en: queryString
+          keyData: queryString
         }
         this.api.search(postData).then((result) => {
           if (result.data && result.data.length) {

@@ -102,6 +102,7 @@
 
 <script>
 import indexMixin from '../../mixins/index-mixin'
+import { toPosName } from '@/utils/commonUtils'
 import api from './api.js'
 export default {
   name: 'word',
@@ -135,21 +136,7 @@ export default {
   watch: {
   },
   methods: {
-    toName (index) {
-      let posList = [
-        'n.',
-        'vi.',
-        'vt.',
-        'pron.',
-        'adj.',
-        'adv.',
-        'art.',
-        'prep.',
-        'conj.',
-        'interj.'
-      ]
-      return posList[index - 1]
-    }
+    toName: toPosName
     // showStarDialog (row) {
     //   this.choicedRow = row
     //   this.dialogWidth = '400px'

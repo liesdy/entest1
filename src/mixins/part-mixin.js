@@ -1,4 +1,5 @@
 // import { formatTime } from '@/utils/commonUtils.js'
+import { toPosName } from '@/utils/commonUtils'
 export default {
   name: 'part-mixin',
   components: {},
@@ -29,6 +30,8 @@ export default {
   computed: {
   },
   methods: {
+    // 获取词性中文
+    toPosName,
     // 通过点击目标的 id 和 类型 跳转至目标对应的详情
     emitLeap (id, targetDetailType) {
       this.$emit('emitLeap', [

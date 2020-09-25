@@ -24,7 +24,11 @@
           closable
           :disable-transitions="false"
           @close="handleEditingListClose(item)">
-          {{item.en}} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
+          {{item.en}}
+          <template v-if="item.cn">
+            {{ showList(item.cn) }}
+            <!-- {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}   -->
+          </template>
         </el-tag>
         <el-tag
           class='mr10'
@@ -33,13 +37,21 @@
           closable
           :disable-transitions="false"
           @close="handleAddedListClose(item)">
-          {{item.en}} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
+          {{item.en}}
+          <template v-if="item.cn">
+            {{ showList(item.cn) }}
+          </template>
         </el-tag>
         <el-button @click="openSelectDialog" size="small" type="danger" icon="el-icon-plus" circle></el-button>
       </template>
       <template v-else>
         <p v-for='item in rootData.words' :key='item.id'>
-          <el-button type='text' @click='emitLeap(item.id, "word")'>&nbsp;{{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}</el-button>
+          <el-button type='text' @click='emitLeap(item.id, "word")'>
+            {{ item.en }} &nbsp;
+            <template v-if="item.cn">
+              {{ showList(item.cn) }}
+            </template>
+          </el-button>
         </p>
       </template>
     </el-form-item>
@@ -90,6 +102,13 @@ export default {
     openSelectDialog () {
       this.showDialog = true
       this.componentName = 'selectWordList'
+    },
+    showList (arr) {
+      let list = []
+      arr.forEach(item => {
+        list.push('  ' + this.toPosName(item.pos) + item.cn)
+      })
+      return list.join(' , ')
     }
   },
   mounted () {

@@ -147,3 +147,22 @@ export function getValueByKey (keyPathStr, object, defaultValue) {
 export function clone (obj) {
   return _.cloneDeep(obj)
 }
+
+/**
+ * 获取词性中文
+ */
+export function toPosName (index) {
+  let posList = [
+    'n.',
+    'vi.',
+    'vt.',
+    'pron.',
+    'adj.',
+    'adv.',
+    'art.',
+    'prep.',
+    'conj.',
+    'interj.'
+  ]
+  return posList[index - 1]
+}

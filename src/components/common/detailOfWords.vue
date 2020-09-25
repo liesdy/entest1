@@ -105,7 +105,7 @@
     </el-row>
     <!-- 确认添加 -->
     <el-row type="flex" justify="center" v-if='isAdd'>
-      <el-button @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>
+      <el-button :loading="addLoading" @click="confirmAdd('ruleForm')" type="primary" round>确认添加</el-button>
     </el-row>
 
     <template v-if='!isAdd'>

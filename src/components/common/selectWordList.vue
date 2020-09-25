@@ -30,7 +30,7 @@
           label="中文"
           min-width="180">
           <template slot-scope="scope">
-          <span v-for="item in scope.row.cn" :key="item.id">{{ item.cn }} </span>
+          <span v-for="item in scope.row.cn" :key="item.id">{{ toPosName(item.pos) }} &nbsp; {{ item.cn }} </span>
         </template>
         </el-table-column>
       </cm-table>
@@ -83,7 +83,10 @@
               :key='item.id'
               closable
               @close="handleCloseSelection(index)">
-              {{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
+              {{ item.en }}
+              <template v-if="item.cn">
+                {{ showList(item.cn) }}
+              </template>
             </el-tag>
           </el-col>
         </el-row>
@@ -99,7 +102,10 @@
               :key='item.id'
               closable
               @close="handleCloseCreated(index)">
-              {{ item.en }} {{ item.cn ? (item.cn[0] ? item.cn[0]['cn'] : null) : null}}
+              {{ item.en }}
+              <template v-if="item.cn">
+                {{ showList(item.cn) }}
+              </template>
             </el-tag>
           </el-col>
         </el-row>
@@ -241,6 +247,13 @@ export default {
           }
         })
       }
+    },
+    showList (arr) {
+      let list = []
+      arr.forEach(item => {
+        list.push('  ' + this.toPosName(item.pos) + item.cn)
+      })
+      return list.join(' , ')
     }
   },
   mounted () {

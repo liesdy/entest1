@@ -1,3 +1,4 @@
+import { toPosName } from '@/utils/commonUtils'
 export default {
   name: 'index-mixin',
   components: {},
@@ -48,6 +49,8 @@ export default {
     }
   },
   methods: {
+    // 获取词性中文
+    toPosName,
     // 监听表格中选中行的变更
     handleSelectionChange (val) {
       this.multipleSelection = val

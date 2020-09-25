@@ -28,7 +28,8 @@ export default {
           { required: true, message: '请输入英文', trigger: 'blur' }
           // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ]
-      }
+      },
+      addLoading: false
     }
   },
   computed: {
@@ -47,11 +48,18 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.canAdd && (this.rootData2.en || this.rootData2.title || this.rootData2.book_name)) {
+            this.addLoading = true
             this.api.add(this.rootData2).then(res => {
               if (res.data && res.data.id) {
                 this.detailId = res.data.id
                 this.getDetail()
               }
+            // }).catch(err => {
+            //   this.$message(err.message)
+            //   this.addLoading = false
+            // })
+            }).finally(() => {
+              this.addLoading = false
             })
           }
         } else {
