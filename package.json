@@ -16,7 +16,7 @@
   "dependencies": {
     "@antv/g2": "^4.0.15",
     "ajv": "^6.12.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "echarts": "^4.9.0",
     "element-ui": "^2.13.2",
     "less": "^3.12.2",
